@@ -1,0 +1,1480 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/Projects/Projet_Simulateur/Theory/3_Mathematical_Foundations_%26_Modeling/">
+      
+      
+        <link rel="prev" href="../2_Path_Tracking_and_Error_Computation/">
+      
+      
+        <link rel="next" href="../4_Vehicle_Dynamics_and_Physical_Modeling/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/logo_SB.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Mathematical Foundations - Sam Bouchaud</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+  <link rel="stylesheet" href="../../../../Theme/2_Documentation_Project/Extra_Documentation.css">
+
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&display=swap">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&family=Pacifico&display=swap">
+    
+      <link rel="stylesheet" href="../../../../Theme/3_Dropdown/nav_dropdown.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3-mathematical-foundations-modeling" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Sam Bouchaud" class="md-header__button md-logo" aria-label="Sam Bouchaud" data-md-component="logo">
+      
+  <img src="../../../../assets/logo_SB.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sam Bouchaud
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Mathematical Foundations
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Homepage
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index_4WS_Simu/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Simulator Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Sam Bouchaud" class="md-nav__button md-logo" aria-label="Sam Bouchaud" data-md-component="logo">
+      
+  <img src="../../../../assets/logo_SB.svg" alt="logo">
+
+    </a>
+    Sam Bouchaud
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homepage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulator Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Simulator Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index_4WS_Simu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_Simulator_Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2_Path_Tracking_and_Error_Computation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Foundations
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31-the-frenet-serret-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. The Frenet-Serret Frame
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1. The Frenet-Serret Frame">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-diagram-nomenclature-and-geometric-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1. Diagram Nomenclature and Geometric Construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312-kinematic-state-space-model-geometric-derivation-of-the-evolution-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2. Kinematic State-Space Model: Geometric Derivation of the Evolution Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313-extending-to-the-dynamic-model-integration-of-slip-angles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3. Extending to the Dynamic Model: Integration of Slip Angles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-numerical-integration-euler-method-for-state-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Numerical Integration: Euler Method for State Evolution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-trigonometric-limits-angular-wrapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Trigonometric Limits &amp; Angular Wrapping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3. Trigonometric Limits &amp; Angular Wrapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-tangent-singularities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1 Tangent Singularities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-angular-wrapping-modulo-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2 Angular Wrapping (Modulo Operation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-actuator-dynamics-and-delay-state-space-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Actuator Dynamics and Delay: State-Space Representation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35-imposing-a-dynamic-behavior-the-first-order-error-convergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5. Imposing a Dynamic Behavior: The First-Order Error Convergence
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4_Vehicle_Dynamics_and_Physical_Modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicle Dynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5_State_Observers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Observers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6_Front_Axle_Control_Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Front Axle Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7_Rear_Axle_Control_Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rear Axle Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Implementation/1_Parameters_Launch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index_Results_4WS_Simu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="3-mathematical-foundations-modeling">3. Mathematical Foundations &amp; Modeling</h1>
+<p>To design an effective control law for an autonomous agricultural robot, we must first establish a rigorous mathematical representation of its motion. Since our simulator operates at a constant longitudinal velocity <span class="arithmatex">\(v\)</span>, the control objective is purely geometric: steering the vehicle to follow a reference path without needing to regulate its speed. This section establishes the fundamental kinematics of the robot and details how we model its dynamic behavior and physical constraints.</p>
+<h2 id="31-the-frenet-serret-frame">3.1. The Frenet-Serret Frame</h2>
+<p>Let us first consider the kinematic bicycle model (or tricycle model) in a fixed, absolute Cartesian frame <span class="arithmatex">\((O, \vec{I}, \vec{J})\)</span>. The robot's state is defined by the coordinates of its reference point <span class="arithmatex">\(R\)</span> (typically the center of the rear axle) denoted as <span class="arithmatex">\((X, Y)\)</span>, and its heading angle <span class="arithmatex">\(\theta\)</span>.</p>
+<p>Assuming a constant velocity <span class="arithmatex">\(v\)</span>, a front steering angle <span class="arithmatex">\(\delta_F\)</span>, and a wheelbase <span class="arithmatex">\(L\)</span>, the absolute kinematic equations are:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\dot{X} &amp;= v \cos(\theta) \\
+\dot{Y} &amp;= v \sin(\theta) \\
+\dot{\theta} &amp;= \frac{v \tan(\delta_F)}{L}
+\end{aligned}
+\]</div>
+<p>If we attempt to control the robot using this absolute frame, the reference trajectory must be defined as a function of time: <span class="arithmatex">\((X_{ref}(t), Y_{ref}(t))\)</span>. This creates a critical flaw in path following: if the robot is physically delayed (e.g., due to wheel slip or actuator latency), the control law will violently try to "catch up" not only spatially, but also temporally, leading to erratic steering behaviors.</p>
+<p>For agricultural tasks, we do not care <em>when</em> the robot reaches a specific coordinate; we only care <em>where</em> it is located relative to the planned path. To decouple the spatial geometry from time, we abandon the absolute frame and project the robot's kinematics into a moving frame attached to the trajectory itself: <strong>the Frenet-Serret frame</strong>.</p>
+<p><img alt="Bot Illustration" src="../../assets/Illustration/Schema_Robot.svg" /></p>
+<p><br></p>
+<h3 id="311-diagram-nomenclature-and-geometric-construction">3.1.1. Diagram Nomenclature and Geometric Construction</h3>
+<p>To fully understand the mathematical model, it is crucial to clearly define the geometric construction of the vehicle's state variables. The physical behavior of the robot is governed by both its kinematics (pure geometry of motion) and its dynamics (forces and tire slip).</p>
+<p>Below is the exhaustive definition of the variables, points, and curves presented in the kinematic/dynamic diagram.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Physical Representation</th>
+<th style="text-align: left;">Geometric Construction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(A\)</span></strong></td>
+<td style="text-align: left;">Instantaneous Center of Rotation (ICR)</td>
+<td style="text-align: left;">The point around which the entire vehicle is momentarily rotating. It is constructed as the intersection of the lines perpendicular to the actual velocity vectors (<span class="arithmatex">\(\vec{v}_{rear}\)</span> and <span class="arithmatex">\(\vec{v}_{front}\)</span>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(M\)</span></strong></td>
+<td style="text-align: left;">Path Reference Point</td>
+<td style="text-align: left;">The exact orthogonal projection of the robot's reference point <span class="arithmatex">\(R\)</span> onto the reference Trajectory.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(R\)</span></strong></td>
+<td style="text-align: left;">Rear Axle Center</td>
+<td style="text-align: left;">The reference point of the vehicle, located at the geometric center of the rear axle.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(F\)</span></strong></td>
+<td style="text-align: left;">Front Axle Center</td>
+<td style="text-align: left;">The center point of the front steering axle.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(G\)</span></strong></td>
+<td style="text-align: left;">Center of Gravity (CoG)</td>
+<td style="text-align: left;">The mass center of the robot. It is located on the longitudinal segment connecting <span class="arithmatex">\(R\)</span> and <span class="arithmatex">\(F\)</span>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Trajectory</strong></td>
+<td style="text-align: left;">The Reference Path</td>
+<td style="text-align: left;">The continuous, desired curve the robot is tasked to follow.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(T_M\)</span></strong></td>
+<td style="text-align: left;">Path Tangent Line</td>
+<td style="text-align: left;">The line perfectly tangent to the <em>Trajectory</em> at the projected point <span class="arithmatex">\(M\)</span>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dotted Parallel</strong></td>
+<td style="text-align: left;">Heading Reference Line</td>
+<td style="text-align: left;">A line passing through the robot's center <span class="arithmatex">\(R\)</span> that is strictly parallel to <span class="arithmatex">\(T_M\)</span>. It is used as a baseline to visualize the angular heading error (<span class="arithmatex">\(\tilde{\theta}\)</span>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(\vec{v}_{rear}\)</span></strong></td>
+<td style="text-align: left;">Rear Velocity Vector</td>
+<td style="text-align: left;">The actual velocity vector of the rear axle at point <span class="arithmatex">\(R\)</span>. Due to dynamic slip, it is not perfectly aligned with the rear wheels.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(\vec{v}_{front}\)</span></strong></td>
+<td style="text-align: left;">Front Velocity Vector</td>
+<td style="text-align: left;">The actual velocity vector of the front axle at point <span class="arithmatex">\(F\)</span>. Due to dynamic slip, it is not perfectly aligned with the front wheels.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(y\)</span></strong></td>
+<td style="text-align: left;">Lateral Tracking Error</td>
+<td style="text-align: left;">The orthogonal distance between the robot <span class="arithmatex">\(R\)</span> and the trajectory <span class="arithmatex">\(M\)</span>. Constructed as the segment <span class="arithmatex">\(RM\)</span> along the normal vector of the Frenet frame.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(\tilde{\theta}\)</span></strong></td>
+<td style="text-align: left;">Heading Error</td>
+<td style="text-align: left;">The angular difference between the vehicle's absolute heading <span class="arithmatex">\(\theta\)</span> and the reference path's local tangent. It is constructed as the angle between the vehicle's axis and the <em>Dotted Parallel</em>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(\delta_R\)</span> / <span class="arithmatex">\(\delta_F\)</span></strong></td>
+<td style="text-align: left;">Steering Angles</td>
+<td style="text-align: left;">The mechanical steering angles of the rear and front wheels. Constructed as the angle between the vehicle's longitudinal axis (<span class="arithmatex">\(RF\)</span>) and the orientation of the wheels.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><span class="arithmatex">\(\beta_R\)</span> / <span class="arithmatex">\(\beta_F\)</span></strong></td>
+<td style="text-align: left;">Slip Angles (Angles de dérive)</td>
+<td style="text-align: left;">The angular difference between the mechanical orientation of the wheels and the actual velocity vectors (<span class="arithmatex">\(\vec{v}\)</span>). These angles are purely <strong>dynamic</strong>: they are caused by tire deformation under lateral forces (such as centrifugal force during a turn) and are fundamental in high-speed or low-grip scenarios.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Understanding the Curvilinear Variables (<span class="arithmatex">\(s\)</span>, <span class="arithmatex">\(c(s)\)</span>, <span class="arithmatex">\(1/c(s)\)</span>)</strong></p>
+<p>Before detailing, we must define the intrinsic properties of the reference trajectory.</p>
+<ul>
+<li><strong><span class="arithmatex">\(s\)</span> (Curvilinear Abscissa):</strong> This is the distance traveled along the reference trajectory, measured in meters from a starting point. It acts as the local "time" or progression parameter for the moving Frenet frame.</li>
+<li><strong><span class="arithmatex">\(c(s)\)</span> (Curvature):</strong> The mathematical curvature of the path at the specific point <span class="arithmatex">\(M\)</span>, parameterized by <span class="arithmatex">\(s\)</span>. It represents how sharply the trajectory is bending.</li>
+<li><strong><span class="arithmatex">\(1/c(s)\)</span> (Radius of Curvature):</strong> The inverse of the curvature gives the instantaneous radius of the circle that perfectly "kisses" the curve at point <span class="arithmatex">\(M\)</span>. Geometrically, it is the distance from <span class="arithmatex">\(M\)</span> to the instantaneous center of curvature of the path.</li>
+</ul>
+<p>To help visualize the dynamic relationship between the curvilinear abscissa and the instantaneous curvature, an animation of the vehicle tracking the path is provided. Below is the legend detailing the color codes and geometric elements used in the simulation.</p>
+<p><img alt="Curvature Animation" src="../../assets/Illustration/Curvature.gif" /></p>
+<ul>
+<li><strong>Light Blue Line (Trajectory)</strong> : The global reference path the robot must follow.</li>
+<li><strong>Thick Red Line (s)</strong> : <em>Curvilinear Abscissa.</em> The exact distance traveled along the reference path.</li>
+<li><strong>Dark Blue Dot</strong> : The current position of the robot's reference point (rear axle).</li>
+<li><strong>Black Circle c(s)</strong> : <em>Osculating Circle.</em> Represents the instantaneous curvature. It shrinks during sharp turns and expands toward infinity on straight segments.</li>
+<li><strong>Thick Dashed Red Line 1/c(s)</strong> : <em>Radius of Curvature.</em> The orthogonal distance between the robot's projected position and the center of the osculating circle.</li>
+</ul>
+<p><br></p>
+<h3 id="312-kinematic-state-space-model-geometric-derivation-of-the-evolution-equations">3.1.2. Kinematic State-Space Model: Geometric Derivation of the Evolution Equations</h3>
+<p>In our relative moving frame, the complex absolute position <span class="arithmatex">\((X, Y, \theta)\)</span> is reduced to two intuitive tracking errors:</p>
+<ol>
+<li><strong>The lateral error (<span class="arithmatex">\(y\)</span>):</strong> The orthogonal distance between the robot <span class="arithmatex">\(R\)</span> and the projected point <span class="arithmatex">\(M\)</span> on the trajectory.</li>
+<li><strong>The heading error (<span class="arithmatex">\(\tilde{\theta}\)</span>):</strong> The angular difference between the robot's absolute heading <span class="arithmatex">\(\theta\)</span> and the trajectory's local tangent angle <span class="arithmatex">\(\theta_M\)</span>.</li>
+</ol>
+<div class="arithmatex">\[
+\tilde{\theta} = \theta - \theta_M
+\]</div>
+<p>To control the robot, we must determine how these errors evolve over time (<span class="arithmatex">\(\dot{y}\)</span> and <span class="arithmatex">\(\dot{\tilde{\theta}}\)</span>). Instead of using complex vector calculus, we can derive these equations purely through geometry based on the vehicle's diagram.</p>
+<hr />
+<p><strong>a) Lateral Error Dynamics (<span class="arithmatex">\(\dot{y}\)</span>)</strong></p>
+<p>Look at the robot's reference point <span class="arithmatex">\(R\)</span>. The vehicle is moving with a constant longitudinal velocity <span class="arithmatex">\(v\)</span> in the direction of its heading <span class="arithmatex">\(\theta\)</span>.
+Since the reference path is angled at <span class="arithmatex">\(\theta_M\)</span>, the velocity vector <span class="arithmatex">\(v\)</span> has an angular offset of exactly <span class="arithmatex">\(\tilde{\theta}\)</span> relative to the path.</p>
+<p>We can split the velocity vector <span class="arithmatex">\(v\)</span> into two geometric components relative to the trajectory:</p>
+<ul>
+<li>A velocity <strong>parallel</strong> to the path: <span class="arithmatex">\(v_{\parallel} = v \cos(\tilde{\theta})\)</span></li>
+<li>A velocity <strong>perpendicular</strong> to the path: <span class="arithmatex">\(v_{\perp} = v \sin(\tilde{\theta})\)</span></li>
+</ul>
+<p>Since the lateral error <span class="arithmatex">\(y\)</span> is strictly defined as the perpendicular distance to the path, its rate of change <span class="arithmatex">\(\dot{y}\)</span> is exactly equal to the perpendicular velocity component of the robot. Therefore, the lateral dynamic is simply:</p>
+<div class="arithmatex">\[
+\dot{y} = v \sin(\tilde{\theta})
+\]</div>
+<hr />
+<p><strong>b) Curvilinear Velocity (<span class="arithmatex">\(\dot{s}\)</span>)</strong></p>
+<p>To find the heading error dynamics, we first need to know how fast the projection point <span class="arithmatex">\(M\)</span> is moving along the reference trajectory. This speed is the derivative of the curvilinear abscissa: <span class="arithmatex">\(\dot{s}\)</span>.</p>
+<p>The robot is moving parallel to the path at a speed <span class="arithmatex">\(v_{\parallel} = v \cos(\tilde{\theta})\)</span>. However, the robot is not exactly on the path; it is offset by the distance <span class="arithmatex">\(y\)</span>.
+If the path has a local curvature <span class="arithmatex">\(c(s)\)</span>, its instantaneous radius of curvature is <span class="arithmatex">\(R_c = \frac{1}{c(s)}\)</span>.</p>
+<p>Because <span class="arithmatex">\(R\)</span> and <span class="arithmatex">\(M\)</span> are aligned on the same normal line originating from the center of curvature, they share the same instantaneous angular velocity <span class="arithmatex">\(\omega\)</span>.</p>
+<ul>
+<li>The point <span class="arithmatex">\(M\)</span> travels on an arc of radius <span class="arithmatex">\(R_c\)</span>.</li>
+<li>The robot <span class="arithmatex">\(R\)</span> travels on a parallel arc of radius <span class="arithmatex">\(R_c - y\)</span>.</li>
+</ul>
+<p>Using the standard rotational formula (<span class="arithmatex">\(v = \omega \cdot R\)</span>), we can write the angular velocity from the robot's perspective:</p>
+<div class="arithmatex">\[
+\omega = \frac{v_{\parallel}}{R_c - y} = \frac{v \cos(\tilde{\theta})}{\frac{1}{c(s)} - y}
+\]</div>
+<p>Now, applying this same angular velocity to the projection point <span class="arithmatex">\(M\)</span> to find its speed <span class="arithmatex">\(\dot{s}\)</span>:</p>
+<div class="arithmatex">\[
+\dot{s} = \omega \cdot R_c = \left( \frac{v \cos(\tilde{\theta})}{\frac{1}{c(s)} - y} \right) \cdot \frac{1}{c(s)}
+\]</div>
+<p>Multiplying the numerator and the denominator by <span class="arithmatex">\(c(s)\)</span> simplifies the fraction, giving us the exact speed of the reference point:</p>
+<div class="arithmatex">\[
+\dot{s} = \frac{v \cos(\tilde{\theta})}{1 - y \cdot c(s)}
+\]</div>
+<hr />
+<p><strong>c) Heading Error Dynamics (<span class="arithmatex">\(\dot{\tilde{\theta}}\)</span>)</strong></p>
+<p>We established that <span class="arithmatex">\(\tilde{\theta} = \theta - \theta_M\)</span>. Taking the time derivative yields:</p>
+<div class="arithmatex">\[
+\dot{\tilde{\theta}} = \dot{\theta} - \dot{\theta}_M
+\]</div>
+<p>From the absolute kinematic tricycle model, we know the robot's yaw rate is:</p>
+<div class="arithmatex">\[
+\dot{\theta} = \frac{v \tan(\delta_F)}{L}
+\]</div>
+<p>For the trajectory, by the mathematical definition of curvature, the angle of the path changes with respect to the distance traveled as <span class="arithmatex">\(\frac{d\theta_M}{ds} = c(s)\)</span>. Using the chain rule, the rate of change of the path's angle over time is:</p>
+<div class="arithmatex">\[
+\dot{\theta}_M = \frac{d\theta_M}{ds} \cdot \frac{ds}{dt} = c(s) \cdot \dot{s}
+\]</div>
+<p>Substituting the expression for <span class="arithmatex">\(\dot{s}\)</span> we just found:</p>
+<div class="arithmatex">\[
+\dot{\theta}_M = \frac{v \cos(\tilde{\theta}) c(s)}{1 - y \cdot c(s)}
+\]</div>
+<p>Finally, subtracting <span class="arithmatex">\(\dot{\theta}_M\)</span> from <span class="arithmatex">\(\dot{\theta}\)</span> gives us the complete heading error dynamic:</p>
+<div class="arithmatex">\[
+\dot{\tilde{\theta}} = \frac{v \tan(\delta_F)}{L} - \frac{v \cos(\tilde{\theta}) c(s)}{1 - y \cdot c(s)}
+\]</div>
+<hr />
+<p><strong>d) Summary of the Kinematic State-Space Model</strong></p>
+<p>Through direct geometric projection, we have transformed a 3D absolute trajectory tracking problem into a 2D regulation problem. Our final continuous state-space model for path following is:</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+\dot{s} \\
+\dot{y} \\
+\dot{\tilde{\theta}}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{v \cos(\tilde{\theta})}{1 - y \cdot c(s)} \\
+v \sin(\tilde{\theta}) \\
+\frac{v \tan(\delta_F)}{L} - \frac{v \cos(\tilde{\theta}) c(s)}{1 - y \cdot c(s)}
+\end{bmatrix}
+\]</div>
+<p><br></p>
+<h3 id="313-extending-to-the-dynamic-model-integration-of-slip-angles">3.1.3. Extending to the Dynamic Model: Integration of Slip Angles</h3>
+<p>The purely geometric kinematic model assumes an ideal condition: the velocity vectors at the axles are perfectly aligned with the orientation of the wheels. In reality, especially in agricultural scenarios where grip is inconsistent, tire deformation and lateral forces create a discrepancy between the mechanical steering angle and the actual direction of motion. This discrepancy is the <strong>slip angle</strong> (<span class="arithmatex">\(\beta\)</span>).</p>
+<p>Furthermore, our agricultural robot model must accommodate a rear steering capability (<span class="arithmatex">\(\delta_R\)</span>) in addition to the front steering (<span class="arithmatex">\(\delta_F\)</span>). To control the vehicle effectively, these dynamic variables must be integrated into our state-space equations (<span class="arithmatex">\(\dot{y}\)</span>, <span class="arithmatex">\(\dot{s}\)</span>, and <span class="arithmatex">\(\dot{\tilde{\theta}}\)</span>).</p>
+<hr />
+<p><strong>a) Defining the True Velocity Angles (<span class="arithmatex">\(\alpha_R\)</span> and <span class="arithmatex">\(\alpha_F\)</span>)</strong></p>
+<p>Let <span class="arithmatex">\(\alpha\)</span> be the absolute angle of the velocity vector relative to the vehicle's longitudinal axis (<span class="arithmatex">\(RF\)</span>). This true angle is simply the sum of the mechanical steering input (<span class="arithmatex">\(\delta\)</span>) and the dynamic slip angle (<span class="arithmatex">\(\beta\)</span>):</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\alpha_R &amp;= \delta_R + \beta_R \\
+\alpha_F &amp;= \delta_F + \beta_F
+\end{aligned}
+\]</div>
+<p>Because the rear axle velocity vector <span class="arithmatex">\(v\)</span> is now rotated by <span class="arithmatex">\(\alpha_R\)</span> relative to the vehicle body, the absolute angle of the velocity vector in the global frame is <span class="arithmatex">\(\theta + \alpha_R\)</span>.</p>
+<hr />
+<p><strong>b) Updating Lateral Error (<span class="arithmatex">\(\dot{y}\)</span>) and Curvilinear Velocity (<span class="arithmatex">\(\dot{s}\)</span>)</strong></p>
+<p>Recall from the pure kinematic model that tracking errors are defined relative to the path's tangent angle <span class="arithmatex">\(\theta_M\)</span>. With the slip and rear steering incorporated, the effective angular offset between the true direction of motion at the rear axle and the reference path is no longer just <span class="arithmatex">\(\tilde{\theta}\)</span>, but <span class="arithmatex">\(\tilde{\theta}_{eff} = (\theta + \alpha_R) - \theta_M = \tilde{\theta} + \alpha_R\)</span>.</p>
+<p>Substituting <span class="arithmatex">\(\alpha_R = \delta_R + \beta_R\)</span>, we find the true orientation error of the velocity vector:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\tilde{\theta}_{eff} &amp;= \tilde{\theta} + \beta_R + \delta_R
+\end{aligned}
+\]</div>
+<p>We can now substitute this effective angle into the perpendicular and parallel velocity components defined in section 3.1.3:</p>
+<ol>
+<li><strong>For the lateral error (<span class="arithmatex">\(\dot{y}\)</span>)</strong>, which represents the perpendicular velocity component:</li>
+</ol>
+<div class="arithmatex">\[
+\begin{aligned}
+v_{\perp} &amp;= v \sin(\tilde{\theta}_{eff}) \\
+\dot{y} &amp;= v \sin(\tilde{\theta} + \beta_R + \delta_R)
+\end{aligned}
+\]</div>
+<ol>
+<li><strong>For the curvilinear velocity (<span class="arithmatex">\(\dot{s}\)</span>)</strong>, which depends on the parallel velocity component:</li>
+</ol>
+<div class="arithmatex">\[
+\begin{aligned}
+v_{\parallel} &amp;= v \cos(\tilde{\theta}_{eff}) \\
+\dot{s} &amp;= \frac{v_{\parallel}}{1 - y \cdot c(s)} \\
+\dot{s} &amp;= \frac{v \cos(\tilde{\theta} + \beta_R + \delta_R)}{1 - y \cdot c(s)}
+\end{aligned}
+\]</div>
+<hr />
+<p><strong>c) Deriving the True Yaw Rate (<span class="arithmatex">\(\dot{\theta}\)</span>)</strong></p>
+<p>To find the new heading error dynamic <span class="arithmatex">\(\dot{\tilde{\theta}}\)</span>, we must first determine the absolute yaw rate <span class="arithmatex">\(\dot{\theta}\)</span> of the vehicle body considering both <span class="arithmatex">\(\alpha_R\)</span> and <span class="arithmatex">\(\alpha_F\)</span>.</p>
+<p>Using rigid body kinematics, we relate the velocity at the front axle <span class="arithmatex">\(F\)</span> to the rear axle <span class="arithmatex">\(R\)</span> through the rotation vector <span class="arithmatex">\(\vec{\Omega}\)</span> (yaw rate <span class="arithmatex">\(\dot{\theta}\)</span>) and the wheelbase vector <span class="arithmatex">\(\vec{RF}\)</span> (length <span class="arithmatex">\(L\)</span>). Projecting these velocities onto the vehicle's lateral (<span class="arithmatex">\(y\)</span>-axis) and longitudinal (<span class="arithmatex">\(x\)</span>-axis) frames yields:</p>
+<ul>
+<li>Longitudinal component: <span class="arithmatex">\(v_F \cos(\alpha_F) = v \cos(\alpha_R)\)</span></li>
+<li>Lateral component: <span class="arithmatex">\(v_F \sin(\alpha_F) = v \sin(\alpha_R) + L\dot{\theta}\)</span></li>
+</ul>
+<p>From the longitudinal equation, we isolate <span class="arithmatex">\(v_F = v \frac{\cos(\alpha_R)}{\cos(\alpha_F)}\)</span>. Substituting this into the lateral equation:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+v \left( \frac{\cos(\alpha_R)}{\cos(\alpha_F)} \right) \sin(\alpha_F) &amp;= v \sin(\alpha_R) + L\dot{\theta} \\
+v \cos(\alpha_R) \tan(\alpha_F) &amp;= v \sin(\alpha_R) + L\dot{\theta} \\
+L\dot{\theta} &amp;= v \cos(\alpha_R) \tan(\alpha_F) - v \sin(\alpha_R)
+\end{aligned}
+\]</div>
+<p>Factoring out <span class="arithmatex">\(v \cos(\alpha_R)\)</span> gives us the exact analytical yaw rate:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+L\dot{\theta} &amp;= v \cos(\alpha_R) \left( \tan(\alpha_F) - \frac{\sin(\alpha_R)}{\cos(\alpha_R)} \right) \\
+\dot{\theta} &amp;= \frac{v \cos(\alpha_R)}{L} \Big( \tan(\alpha_F) - \tan(\alpha_R) \Big)
+\end{aligned}
+\]</div>
+<p>To format this into the standard control formula, we use the trigonometric identity:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\tan(\alpha_F) - \tan(\alpha_R) &amp;= \tan(\alpha_F - \alpha_R) \cdot \big( 1 + \tan(\alpha_F)\tan(\alpha_R) \big)
+\end{aligned}
+\]</div>
+<p>In mobile robotics, the steering and slip angles are sufficiently small that the cross-product of their tangents is negligible (<span class="arithmatex">\(\tan(\alpha_F)\tan(\alpha_R) \approx 0\)</span>). Applying this standard approximation, we simplify the expression:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\tan(\alpha_F) - \tan(\alpha_R) &amp;\approx \tan(\alpha_F - \alpha_R)
+\end{aligned}
+\]</div>
+<p>Substituting this back into the yaw rate equation, and replacing <span class="arithmatex">\(\alpha_R\)</span> and <span class="arithmatex">\(\alpha_F\)</span> by their respective sums:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\dot{\theta} &amp;= \frac{v \cos(\alpha_R) \tan(\alpha_F - \alpha_R)}{L} \\
+\dot{\theta} &amp;= \frac{v \cos(\beta_R + \delta_R) \tan\big((\delta_F + \beta_F) - (\delta_R + \beta_R)\big)}{L} \\
+\dot{\theta} &amp;= \frac{v \cos(\beta_R + \delta_R) \tan(\delta_F + \beta_F - \delta_R - \beta_R)}{L}
+\end{aligned}
+\]</div>
+<hr />
+<p><strong>d) Final Heading Error Dynamics (<span class="arithmatex">\(\dot{\tilde{\theta}}\)</span>)</strong></p>
+<p>As defined previously, the heading error evolution is the difference between the vehicle's yaw rate and the path's angular velocity:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\dot{\tilde{\theta}} &amp;= \dot{\theta} - \dot{\theta}_M
+\end{aligned}
+\]</div>
+<p>Applying the chain rule, the trajectory's angular change over time is <span class="arithmatex">\(\dot{\theta}_M = c(s) \cdot \dot{s}\)</span>. Using the updated <span class="arithmatex">\(\dot{s}\)</span> equation:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\dot{\theta}_M &amp;= \frac{v \cdot c(s) \cos(\tilde{\theta} + \beta_R + \delta_R)}{1 - y \cdot c(s)}
+\end{aligned}
+\]</div>
+<p>Finally, subtracting <span class="arithmatex">\(\dot{\theta}_M\)</span> from the dynamic <span class="arithmatex">\(\dot{\theta}\)</span> and factoring out the linear velocity <span class="arithmatex">\(v\)</span>, we establish the complete, extended heading error dynamic equation:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\dot{\tilde{\theta}} &amp;= v \left[ \frac{\cos(\beta_R + \delta_R) \tan(\delta_F + \beta_F - \delta_R - \beta_R)}{L} - \frac{c(s) \cos(\tilde{\theta} + \beta_R + \delta_R)}{1 - y \cdot c(s)} \right]
+\end{aligned}
+\]</div>
+<hr />
+<p><strong>e) Final State-Space Representation</strong></p>
+<p>To synthesize the previous derivations, we define the complete state vector relative to the reference trajectory as <span class="arithmatex">\(X = [s, y, \tilde{\theta}]^T\)</span>.</p>
+<p>Grouping the individual dynamics yields the final continuous-time, non-linear extended kinematic model:</p>
+<div class="arithmatex">\[\begin{aligned}
+\begin{bmatrix} 
+\dot{s} \\ 
+\dot{y} \\ 
+\dot{\tilde{\theta}} 
+\end{bmatrix} 
+= 
+\begin{bmatrix}
+\frac{v \cos(\tilde{\theta} + \beta_R + \delta_R)}{1 - y \cdot c(s)} \\[1.5em]
+v \sin(\tilde{\theta} + \beta_R + \delta_R) \\[1.5em]
+\frac{v \cos(\beta_R + \delta_R) \tan(\delta_F + \beta_F - \delta_R - \beta_R)}{L} - \frac{v \cdot c(s) \cos(\tilde{\theta} + \beta_R + \delta_R)}{1 - y \cdot c(s)}
+\end{bmatrix}
+\end{aligned}\]</div>
+<p>This system of differential equations dictates the exact behavior of the tracking errors and serves as the foundation for our advanced control strategies (such as Backstepping and MPC).</p>
+<p><br></p>
+<h2 id="32-numerical-integration-euler-method-for-state-evolution">3.2. Numerical Integration: Euler Method for State Evolution</h2>
+<p>The continuous-time state-space model derived in the previous section describes the exact analytical rates of change (<span class="arithmatex">\(\dot{X}\)</span>) of the vehicle. However, to simulate this physical behavior in a digital environment like Scilab, we must discretize time. The continuous system must be evaluated at discrete time steps of length <span class="arithmatex">\(\Delta t\)</span>.</p>
+<p>To find the state <span class="arithmatex">\(X\)</span> at the next time step (<span class="arithmatex">\(t + \Delta t\)</span>), we rely on the fundamental theorem of calculus:</p>
+<div class="arithmatex">\[
+X(t + \Delta t) = X(t) + \int_{t}^{t + \Delta t} \dot{X}(\tau) d\tau
+\]</div>
+<p>For a sufficiently small time step <span class="arithmatex">\(\Delta t\)</span>, we can assume that the rate of change <span class="arithmatex">\(\dot{X}\)</span> remains constant over the interval. This assumption is formalized by truncating the Taylor series expansion at the first order:</p>
+<div class="arithmatex">\[
+X(t + \Delta t) = X(t) + \dot{X}(t) \cdot \Delta t + \mathcal{O}(\Delta t^2)
+\]</div>
+<p>By neglecting the higher-order terms <span class="arithmatex">\(O(\Delta t^2)\)</span>, we obtain the <strong>Forward Euler Method</strong>. Let <span class="arithmatex">\(k\)</span> denote the current discrete time step and <span class="arithmatex">\(k+1\)</span> the next step. Applying this numerical integration to our absolute position (<span class="arithmatex">\(x, y\)</span>) and heading (<span class="arithmatex">\(\theta\)</span>) yields:</p>
+<div class="arithmatex">\[\begin{aligned}
+\begin{bmatrix} 
+x_{k+1} \\[0.5em] 
+y_{k+1} \\[0.5em] 
+\theta_{k+1} 
+\end{bmatrix} 
+= 
+\begin{bmatrix} 
+x_{k} \\[0.5em] 
+y_{k} \\[0.5em] 
+\theta_{k} 
+\end{bmatrix} 
++ 
+\Delta t \cdot
+\begin{bmatrix} 
+v_k \cos(\theta_k + \alpha_{R,k}) \\[0.5em] 
+v_k \sin(\theta_k + \alpha_{R,k}) \\[0.5em] 
+\dot{\theta}_k
+\end{bmatrix}
+\end{aligned}\]</div>
+<p>While simple, the Euler method is highly effective for mobile robotics simulation, provided that the sampling time <span class="arithmatex">\(\Delta t\)</span> is strictly chosen to be smaller than the fastest dynamic of the system to ensure numerical stability.</p>
+<p><strong>Important Clarification: The Two Reference Frames</strong></p>
+<p>Before proceeding, it is crucial to address a common source of confusion: why do we apply Euler integration to the simple sine/cosine equations above, rather than to the complex extended kinematic equations (<span class="arithmatex">\(\dot{y}, \dot{\tilde{\theta}}\)</span>) derived in section 3.1?</p>
+<p>The answer lies in understanding that the simulation operates across two distinct mathematical worlds:</p>
+<ol>
+<li><strong>The Global Cartesian Frame (Absolute Physics):</strong> The simple equations above compute the vehicle's absolute coordinates (<span class="arithmatex">\(X, Y\)</span>) on the map. The simulator's physics engine uses Euler integration on these equations because they dictate the actual, physical translation of the robot in the 2D world.</li>
+<li><strong>The Relative Frenet Frame (Control Logic):</strong> The complex state-space equations derived earlier operate purely in a moving frame relative to the trajectory. In those equations, the variable <span class="arithmatex">\(y\)</span> is <strong>not</strong> a map coordinate; it is the <strong>lateral tracking error</strong> (the distance to the path). Those complex equations are not used to physically move the robot in the simulator. Instead, they serve as the theoretical foundation for the control algorithm to understand how errors evolve.</li>
+</ol>
+<p><strong>The Simulation Loop:</strong> </p>
+<p><br></p>
+<p>At every time step, these two frames collaborate. First, the physics engine physically moves the tractor to a new absolute position (<span class="arithmatex">\(X, Y\)</span>) using Euler integration. Next, the simulator projects this new coordinate onto the reference path to measure the new relative errors (<span class="arithmatex">\(y\)</span> and <span class="arithmatex">\(\tilde{\theta}\)</span>). Finally, the control algorithm uses the complex relative kinematics to compute the optimal steering command to correct these errors in the next step.</p>
+<h2 id="33-trigonometric-limits-angular-wrapping">3.3. Trigonometric Limits &amp; Angular Wrapping</h2>
+<p>When implementing the mathematical model in software, we encounter two major numerical vulnerabilities inherent to trigonometry: <strong>tangent singularities and angular unboundedness</strong>.</p>
+<h3 id="331-tangent-singularities">3.3.1 Tangent Singularities</h3>
+<p>Recall the yaw rate equation, which features the term <span class="arithmatex">\(\tan(\delta_F + \beta_F - \delta_R - \beta_R)\)</span>. The tangent function approaches infinity as its argument approaches <span class="arithmatex">\(\pm \frac{\pi}{2}\)</span> rad (90°).</p>
+<div class="arithmatex">\[
+\lim_{x \to \frac{\pi}{2}} \tan(x) = +\infty
+\]</div>
+<p>If the difference between the front and rear effective angles exceeds this limit, the computed yaw rate would become <code>NaN</code> (Not a Number), immediately crashing the simulation. To prevent this, strict physical saturation limits are imposed on the steering inputs before computing the kinematics:</p>
+<div class="arithmatex">\[
+-\delta_{max} \le \delta \le \delta_{max} \quad \text{where} \quad \delta_{max} \ll \frac{\pi}{2}
+\]</div>
+<h3 id="332-angular-wrapping-modulo-operation">3.3.2 Angular Wrapping (Modulo Operation)</h3>
+<p>As the robot operates, accumulating continuous left turns causes the absolute heading <span class="arithmatex">\(\theta\)</span> to grow indefinitely (<span class="arithmatex">\(2\pi, 4\pi, 6\pi...\)</span>). If the robot is oriented at <span class="arithmatex">\(2\pi\)</span> radians and the reference trajectory is at <span class="arithmatex">\(0\)</span> radians, the physical heading error is zero, but the mathematical difference yields <span class="arithmatex">\(\tilde{\theta} = 2\pi\)</span>. A control law receiving a <span class="arithmatex">\(2\pi\)</span> error would violently and unnecessarily steer the robot.</p>
+<p>To ensure tracking errors correctly reflect the shortest geometric distance, we must "wrap" all angle differences back to the principal interval <span class="arithmatex">\([-\pi, \pi]\)</span>.
+We define the raw error as <span class="arithmatex">\(e = \theta - \theta_M\)</span>. To normalize it, we shift the domain, apply a continuous modulo of <span class="arithmatex">\(2\pi\)</span>, and shift it back:</p>
+<div class="arithmatex">\[
+\tilde{\theta} = \left( (e + \pi) \pmod{2\pi} \right) - \pi
+\]</div>
+<p>Alternatively, in software, this is robustly implemented using the two-argument arctangent function, which strictly maps to <span class="arithmatex">\([-\pi, \pi]\)</span> based on the unit circle components:</p>
+<div class="arithmatex">\[
+\tilde{\theta} = \text{atan2}(\sin(\theta - \theta_M), \cos(\theta - \theta_M))
+\]</div>
+<h2 id="34-actuator-dynamics-and-delay-state-space-representation">3.4. Actuator Dynamics and Delay: State-Space Representation</h2>
+<p>Up to this point, we assumed the steering angles (<span class="arithmatex">\(\delta_F, \delta_R\)</span>) perfectly and instantly matched the controller's commands (<span class="arithmatex">\(\delta_{F, cmd}, \delta_{R, cmd}\)</span>). In reality, physical motors possess inertia, friction, and inherent reaction delays.</p>
+<p>To create a realistic agricultural simulator, the steering mechanisms are modeled as first-order low-pass systems. The true mechanical angle <span class="arithmatex">\(\delta\)</span> tries to reach the commanded angle <span class="arithmatex">\(\delta_{cmd}\)</span> at a rate determined by a time constant <span class="arithmatex">\(\tau\)</span>. The differential equation governing this delay is:</p>
+<div class="arithmatex">\[
+\tau \cdot \dot{\delta} + \delta = \delta_{cmd}
+\]</div>
+<p>Rearranging to isolate the state derivative (the mechanical velocity of the steering motor):</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\dot{\delta} &amp;= \frac{1}{\tau} (\delta_{cmd} - \delta) \\
+\dot{\delta} &amp;= -\frac{1}{\tau} \delta + \frac{1}{\tau} \delta_{cmd}
+\end{aligned}
+\]</div>
+<p>We can express this coupled dynamic for both the front and rear axles using a standard linear state-space representation. Let <span class="arithmatex">\(X_{act} = [\delta_F, \delta_R]^T\)</span> be the true state of the actuators, and <span class="arithmatex">\(U_{act} = [\delta_{F,cmd}, \delta_{R,cmd}]^T\)</span> be the input command vector from the CPU:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\begin{bmatrix} 
+\dot{\delta}_F \\[1.5em] 
+\dot{\delta}_R 
+\end{bmatrix} 
+&amp;= 
+\begin{bmatrix} 
+-\frac{1}{\tau_F} &amp; 0 \\[1.5em] 
+0 &amp; -\frac{1}{\tau_R} 
+\end{bmatrix} 
+\begin{bmatrix} 
+\delta_F \\[1.5em] 
+\delta_R 
+\end{bmatrix} 
++ 
+\begin{bmatrix} 
+\frac{1}{\tau_F} &amp; 0 \\[1.5em] 
+0 &amp; \frac{1}{\tau_R} 
+\end{bmatrix} 
+\begin{bmatrix} 
+\delta_{F, cmd} \\[1.5em] 
+\delta_{R, cmd} 
+\end{bmatrix}
+\end{aligned}
+\]</div>
+<p>This matrix formulation introduces an unavoidable physical lag into the simulation. This lag justifies the future need for advanced strategies like Model Predictive Control (MPC), which can anticipate the delayed response of the hardware.</p>
+<h2 id="35-imposing-a-dynamic-behavior-the-first-order-error-convergence">3.5. Imposing a Dynamic Behavior: The First-Order Error Convergence</h2>
+<p>The ultimate goal of our control algorithms (like Backstepping) is to compute a steering angle that drives the tracking errors (<span class="arithmatex">\(y\)</span> and <span class="arithmatex">\(\tilde{\theta}\)</span>) to zero. But <em>how</em> they go to zero is equally important. If the correction is too aggressive, the robot will oscillate and lose grip; if it is too slow, it will miss the turn.</p>
+<p>To guarantee a stable and smooth return to the trajectory, we force the error to obey a specific, chosen differential equation. The most common choice is a first-order linear decay, defined by a proportional gain <span class="arithmatex">\(K &gt; 0\)</span>:</p>
+<div class="arithmatex">\[
+\dot{e} = -K \cdot e
+\]</div>
+<p>To understand why this specific structure is mathematically desirable, we solve this differential equation by separating the variables:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{de}{dt} &amp;= -K \cdot e \\
+\frac{1}{e} de &amp;= -K dt
+\end{aligned}
+\]</div>
+<p>We integrate both sides from the initial time <span class="arithmatex">\(t=0\)</span> to a given time <span class="arithmatex">\(t\)</span>, with the initial error being <span class="arithmatex">\(e_0\)</span>:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\int_{e_0}^{e(t)} \frac{1}{e} de &amp;= \int_{0}^{t} -K dt \\
+\Big[ \ln|e| \Big]_{e_0}^{e(t)} &amp;= \Big[ -K \cdot \tau \Big]_{0}^{t} \\
+\ln(e(t)) - \ln(e_0) &amp;= -K \cdot t \\
+\ln\left( \frac{e(t)}{e_0} \right) &amp;= -K \cdot t
+\end{aligned}
+\]</div>
+<p>Applying the exponential function to both sides to solve for the error at time <span class="arithmatex">\(t\)</span>:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{e(t)}{e_0} &amp;= \exp(-K \cdot t) \\
+e(t) &amp;= e_0 \cdot e^{-Kt}
+\end{aligned}
+\]</div>
+<p>This fundamental mathematical result reveals the <strong>transient regime</strong>. Because <span class="arithmatex">\(K\)</span> is positive, <span class="arithmatex">\(e^{-Kt}\)</span> is an exponential decay.</p>
+<ul>
+<li>As <span class="arithmatex">\(t \to \infty\)</span>, the tracking error strictly converges to exactly <span class="arithmatex">\(0\)</span> without any oscillations.</li>
+<li>The parameter <span class="arithmatex">\(K\)</span> acts as a tuning knob: a higher <span class="arithmatex">\(K\)</span> causes a faster, stiffer convergence, while a lower <span class="arithmatex">\(K\)</span> yields a slower, smoother approach.</li>
+</ul>
+<p><img alt="Transitory" src="../../assets/Illustration/Transitory.svg" /></p>
+<p>By matching the complex kinematic derivatives derived in section 3.1 (<span class="arithmatex">\(\dot{y}\)</span>, <span class="arithmatex">\(\dot{\tilde{\theta}}\)</span>) to this ideal imposed dynamic (<span class="arithmatex">\(\dot{e} = -K e\)</span>), we can mathematically isolate and extract the exact steering command needed to achieve perfect trajectory tracking.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy", "navigation.prune", "toc.integrate"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../Theme/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../Theme/3_Dropdown/nav_dropdown.js"></script>
+      
+    
+  </body>
+</html>

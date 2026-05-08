@@ -1,0 +1,1656 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/Projects/Projet_Simulateur/Theory/6_Front_Axle_Control_Strategies/">
+      
+      
+        <link rel="prev" href="../5_State_Observers/">
+      
+      
+        <link rel="next" href="../7_Rear_Axle_Control_Strategies/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/logo_SB.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Front Axle Control - Sam Bouchaud</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+  <link rel="stylesheet" href="../../../../Theme/2_Documentation_Project/Extra_Documentation.css">
+
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&display=swap">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&family=Pacifico&display=swap">
+    
+      <link rel="stylesheet" href="../../../../Theme/3_Dropdown/nav_dropdown.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-front-axle-control-strategies" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Sam Bouchaud" class="md-header__button md-logo" aria-label="Sam Bouchaud" data-md-component="logo">
+      
+  <img src="../../../../assets/logo_SB.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sam Bouchaud
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Front Axle Control
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Homepage
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index_4WS_Simu/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Simulator Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Sam Bouchaud" class="md-nav__button md-logo" aria-label="Sam Bouchaud" data-md-component="logo">
+      
+  <img src="../../../../assets/logo_SB.svg" alt="logo">
+
+    </a>
+    Sam Bouchaud
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homepage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulator Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Simulator Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index_4WS_Simu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_Simulator_Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2_Path_Tracking_and_Error_Computation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3_Mathematical_Foundations_%26_Modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4_Vehicle_Dynamics_and_Physical_Modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicle Dynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5_State_Observers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Observers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Front Axle Control
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Front Axle Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61-proportional-derivative-pd-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Proportional-Derivative (PD) Control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-predictive-chained-system-exact-linearization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Predictive Chained System (Exact Linearization)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2. Predictive Chained System (Exact Linearization)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#621-the-derivative-chain-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2.1. The Derivative Chain Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#622-the-evolution-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2.2. The Evolution Variable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#623-the-variable-to-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2.3. The Variable to Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#624-the-first-derivative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2.4. The First Derivative
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#625-deriving-until-the-command-appears" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2.5. Deriving Until the Command Appears
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#626-backstepping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2.6. Backstepping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-exact-linearization-with-curvature-feedforward" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Exact Linearization with Curvature Feedforward
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3. Exact Linearization with Curvature Feedforward">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#631-the-prediction-loop-via-euler-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3.1. The Prediction Loop via Euler Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#632-feedforward-control-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3.2. Feedforward Control Synthesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-actuator-delay-compensation-via-generalized-predictive-control-gpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Actuator Delay Compensation via Generalized Predictive Control (GPC)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4. Actuator Delay Compensation via Generalized Predictive Control (GPC)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#641-future-reference-desired-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.1. Future Reference &amp; Desired Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#642-free-and-forced-responses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.2. Free and Forced Responses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#643-optimization-and-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.3. Optimization and Regularization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#644-high-order-nonlinear-regulation-spatial-pid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.4. High-Order Nonlinear Regulation (Spatial PID)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#645-analytic-factorization-the-u-and-v-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.5. Analytic Factorization: The \(U\) and \(V\) Terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#646-geometric-decoupling-via-trigonometric-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.6. Geometric Decoupling via Trigonometric Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#647-final-command-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.7. Final Command Synthesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7_Rear_Axle_Control_Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rear Axle Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Implementation/1_Parameters_Launch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index_Results_4WS_Simu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="6-front-axle-control-strategies">6. Front Axle Control Strategies</h1>
+<p>In our 4-Wheel Steering (4WS) architecture, the front and rear axles have distinct responsibilities. The front axle is the primary path-tracking actuator. Its main objective is to aggressively reduce the lateral error (<span class="arithmatex">\(y\)</span>) and align the vehicle's heading with the reference trajectory (<span class="arithmatex">\(\tilde{\theta}\)</span>). </p>
+<p>Because agricultural terrains induce severe non-linear behaviors (slip angles, varying grip), simple linear controllers are often insufficient. Therefore, the simulator implements multiple control laws for the front axle, ranging from a basic PD controller to advanced predictive non-linear strategies.</p>
+<h2 id="61-proportional-derivative-pd-control">6.1. Proportional-Derivative (PD) Control</h2>
+<p>The most fundamental approach is the linear Proportional-Derivative controller. It directly penalizes the lateral error and the heading error using constant gains.</p>
+<div class="arithmatex">\[
+\delta_F = K_p \cdot y + K_d \cdot \tilde{\theta}
+\]</div>
+<ul>
+<li><strong>The Proportional term (<span class="arithmatex">\(K_p \cdot y\)</span>):</strong> Steers the wheels towards the trajectory. A higher <span class="arithmatex">\(K_p\)</span> produces a faster return but risks overshooting.</li>
+<li><strong>The Derivative term (<span class="arithmatex">\(K_d \cdot \tilde{\theta}\)</span>):</strong> Acts as a damping factor. Since <span class="arithmatex">\(\tilde{\theta}\)</span> is directly related to the rate of change of <span class="arithmatex">\(y\)</span>, this term prevents oscillations by straightening the wheels as the robot approaches the path.</li>
+</ul>
+<p><strong>Limitations:</strong> While computationally lightweight, the PD controller is completely "blind" to the trajectory's curvature <span class="arithmatex">\(c(s)\)</span> and the dynamic slip angles (<span class="arithmatex">\(\beta\)</span>). In sharp corners or slippery slopes, it will inevitably produce a steady-state tracking error because it only reacts <em>after</em> an error has occurred.</p>
+<div class="admonition scilab">
+<p class="admonition-title">Front_Axle.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Parameters</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">Kd</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="o">-</span><span class="mf">0.6</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">Kp</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="o">-</span><span class="mf">0.2</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Computation</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">F_Steer_A</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="n">Kp</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Lat_Err</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Kd</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">H_Err</span><span class="w">    </span><span class="p">;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">F_Steer_A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="w"> </span><span class="n">Max_Rad</span><span class="p">,</span><span class="w"> </span><span class="n">F_Steer_A</span><span class="w"> </span><span class="p">)</span><span class="w">     </span><span class="p">;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">F_Steer_A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="w"> </span><span class="n">Min_Rad</span><span class="p">,</span><span class="w"> </span><span class="n">F_Steer_A</span><span class="w"> </span><span class="p">)</span><span class="w">     </span><span class="p">;</span>
+</span></code></pre></div>
+</div>
+<h2 id="62-predictive-chained-system-exact-linearization">6.2. Predictive Chained System (Exact Linearization)</h2>
+<p>To achieve perfect tracking in curves, we must abandon simple linear corrections (like the PD controller) and use the actual non-linear kinematic equations derived in Section 3. However, designing a stable controller directly on non-linear differential equations (which involve multiplied sines, cosines, and tangents) is incredibly complex.</p>
+<p>The <strong>Chained System</strong> is a powerful mathematical transformation known as Exact Linearization. It converts our complex non-linear robot into a virtual system that behaves exactly like a simple cascade of linear integrators. Once the system is mathematically "linearized," it becomes trivial to control.</p>
+<h3 id="621-the-derivative-chain-logic">6.2.1. The Derivative Chain Logic</h3>
+<p><strong>Mathematical Reminder: The Extended Kinematic Model</strong></p>
+<p>Before diving into the chained system, let us recall the fundamental kinematic equations established previously. To simplify the notation, we define the <strong>effective heading angle</strong> <span class="arithmatex">\(\tilde{\theta}_{eff}\)</span> as the sum of the pure heading error, the rear dynamic slip, and the rear steering angle:</p>
+<div class="arithmatex">\[
+\tilde{\theta}_{eff} = \tilde{\theta} + \beta_R + \delta_R
+\]</div>
+<p>Using this effective angle, the rates of change for the curvilinear progression along the path (<span class="arithmatex">\(\dot{s}\)</span>) and the lateral tracking error (<span class="arithmatex">\(\dot{y}\)</span>) are exactly expressed in matrix form as:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\begin{bmatrix}
+\dot{s} \\
+\dot{y}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{v \cos(\tilde{\theta}_{eff})}{1 - c(s)y} \\[1.5em]
+v \sin(\tilde{\theta}_{eff})
+\end{bmatrix}
+\end{aligned}
+\]</div>
+<p>In a standard dynamic system, variables evolve with respect to time (<span class="arithmatex">\(t\)</span>). However, for path tracking, we want the steering correction to depend strictly on the distance traveled, regardless of the vehicle's speed. If the tractor drives faster, it should correct faster over time, but the geometric curve it draws on the ground should remain identical.</p>
+<h3 id="622-the-evolution-variable">6.2.2. The Evolution Variable</h3>
+<p>We completely abandon time <span class="arithmatex">\(t\)</span> and replace it with the curvilinear abscissa <span class="arithmatex">\(s\)</span> (the exact distance traveled along the reference trajectory). This becomes our new independent "clock" or evolution parameter.</p>
+<div class="arithmatex">\[
+a_1 = s
+\]</div>
+<h3 id="623-the-variable-to-control">6.2.3. The Variable to Control</h3>
+<p>The ultimate goal of the front axle is to cancel the lateral tracking error. We define this physical distance as our starting state:</p>
+<div class="arithmatex">\[
+a_2 = y
+\]</div>
+<h3 id="624-the-first-derivative">6.2.4. The First Derivative</h3>
+<p>We calculate how the lateral error <span class="arithmatex">\(y\)</span> changes with respect to the traveled distance <span class="arithmatex">\(s\)</span>. Using the chain rule, we divide the time-derivative of <span class="arithmatex">\(y\)</span> by the time-derivative of <span class="arithmatex">\(s\)</span>:</p>
+<div class="arithmatex">\[
+a_3 = \frac{da_2}{da_1} = \frac{dy}{ds} = \frac{\frac{dy}{dt}}{\frac{ds}{dt}} = \frac{\dot{y}}{\dot{s}}
+\]</div>
+<p>We substitute <span class="arithmatex">\(\dot{y}\)</span> and <span class="arithmatex">\(\dot{s}\)</span> with the exact continuous kinematic equations recalled above:</p>
+<div class="arithmatex">\[
+a_3 = \frac{v \sin(\tilde{\theta}_{eff})}{\frac{v \cos(\tilde{\theta}_{eff})}{1 - c(s)y}}
+\]</div>
+<p>The longitudinal velocity <span class="arithmatex">\(v\)</span> cancels out perfectly. This proves mathematically that our spatial transformation successfully decoupled the steering geometry from the vehicle's speed. Rearranging the fraction yields the first exact derivative:</p>
+<div class="arithmatex">\[
+a_3 = (1 - c(s)y) \tan(\tilde{\theta}_{eff})
+\]</div>
+<h3 id="625-deriving-until-the-command-appears">6.2.5. Deriving Until the Command Appears</h3>
+<p>This step represents the heart of the Chained System process. We derive <span class="arithmatex">\(a_3\)</span> with respect to <span class="arithmatex">\(s\)</span> until <span class="arithmatex">\(\delta_F\)</span> appears.</p>
+<p>We explicitly compute the derivative of <span class="arithmatex">\(a_3 = (1 - c(s)y)\tan(\tilde{\theta}_{eff})\)</span> with respect to the curvilinear abscissa <span class="arithmatex">\(s\)</span>:</p>
+<div class="arithmatex">\[
+m_3 = \frac{da_3}{ds} = \underbrace{\frac{d(1 - c(s)y)}{ds} \tan(\tilde{\theta}_{eff})}_{\text{Geometry variation}} + \underbrace{(1 - c(s)y) \frac{1}{\cos^2(\tilde{\theta}_{eff})} \frac{d\tilde{\theta}_{eff}}{ds}}_{\text{Orientation variation}}
+\]</div>
+<hr />
+<p><strong>a) Expanding the Geometry Variation Term</strong></p>
+<p>We develop <span class="arithmatex">\(\frac{d(1 - c(s)y)}{ds}\)</span> using the product rule:</p>
+<div class="arithmatex">\[
+\frac{d(1 - c(s)y)}{ds} = -c'(s)\,y - c(s)\,\frac{dy}{ds}
+\]</div>
+<p>In curvilinear coordinates, the lateral position derivative with respect to arc length is:</p>
+<div class="arithmatex">\[
+\frac{dy}{ds} = \frac{\dot{y}}{\dot{s}} = (1 - c(s)y)\tan(\tilde{\theta}_{eff}) = a_3
+\]</div>
+<p>Substituting back, the geometry variation term becomes:</p>
+<div class="arithmatex">\[
+\frac{d(1 - c(s)y)}{ds}\,\tan(\tilde{\theta}_{eff}) = \Bigl(-c'(s)\,y - c(s)(1 - c(s)y)\tan(\tilde{\theta}_{eff})\Bigr)\tan(\tilde{\theta}_{eff})
+\]</div>
+<hr />
+<p><strong>b) Expanding the Orientation Variation Term</strong></p>
+<p>By expanding the derivative of the effective heading <span class="arithmatex">\(\frac{d\tilde{\theta}_{eff}}{ds}\)</span> using the chain rule:</p>
+<div class="arithmatex">\[
+\frac{d\tilde{\theta}_{eff}}{ds} = \frac{\dot{\tilde{\theta}}_{eff}}{\dot{s}}
+\]</div>
+<p>Injecting the vehicle's yaw rate <span class="arithmatex">\(\dot{\theta}\)</span>, the command <span class="arithmatex">\(\delta_F\)</span> becomes visible:</p>
+<div class="arithmatex">\[
+\frac{d\tilde{\theta}_{eff}}{ds} = \frac{\dfrac{v \cos(\beta_R + \delta_R) \tan(\delta_F + \beta_F - \delta_R - \beta_R)}{L} - \dot{\theta}_M + \dot{\beta}_R + \dot{\delta}_R}{\dot{s}}
+\]</div>
+<hr />
+<p><strong>c) Full Expression of <span class="arithmatex">\(m_3\)</span></strong></p>
+<p>Combining both terms, the complete expression is:</p>
+<div class="arithmatex">\[
+m_3 = \Bigl(-c'(s)\,y - c(s)(1 - c(s)y)\tan(\tilde{\theta}_{eff})\Bigr)\tan(\tilde{\theta}_{eff}) + \frac{1 - c(s)y}{\cos^2(\tilde{\theta}_{eff})} \left( \frac{\dfrac{v \cos(\beta_R + \delta_R)\tan(\delta_F + \beta_F - \delta_R - \beta_R)}{L} - \dot{\theta}_M + \dot{\beta}_R + \dot{\delta}_R}{\dot{s}} \right)
+\]</div>
+<p>Since the control input <span class="arithmatex">\(\delta_F\)</span> has successfully appeared in the equation, we stop the process here.</p>
+<hr />
+<p><strong>d) Stopping Condition and Results</strong></p>
+<p>We walk back up the integrator chain to define the complete linearized system:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+a_1 &amp;= s \\
+a_2 &amp;= y \\
+a_2' &amp;= a_3 \\
+a_3' &amp;= m_3
+\end{aligned}
+\]</div>
+<h3 id="626-backstepping">6.2.6. Backstepping</h3>
+<p>While the chained system derivation gives an exact analytical expression for <span class="arithmatex">\(m_3\)</span> (Step 4), using it directly as a global PD controller (<span class="arithmatex">\(m_3 = -K_p \cdot a_2 - K_d \cdot a_3\)</span>) presents major limitations in real-world robotics:
+1. <strong>Noise Sensitivity:</strong> The raw expression of <span class="arithmatex">\(m_3\)</span> depends on the spatial derivative of the curvature (<span class="arithmatex">\(c'(s)\)</span>) and dynamic slip variations (<span class="arithmatex">\(\dot{\beta}\)</span>), which are often highly noisy or impossible to measure precisely.
+2. <strong>Physical Abstraction:</strong> <span class="arithmatex">\(m_3\)</span> represents a "spatial acceleration", an abstract quantity that makes tuning the <span class="arithmatex">\(K_p\)</span> and <span class="arithmatex">\(K_d\)</span> gains highly unintuitive for engineers.
+3. <strong>Numerical Instability:</strong> A large initial tracking error can cause the raw unconstrained formula to output aberrant steering commands, instantly destabilizing the simulation.</p>
+<p>To overcome this, the model refactors the math into a <strong>Backstepping</strong> (cascade control) approach. The problem is factored into two distinct physical sub-objectives: defining a target orientation, and then rallying that orientation.</p>
+<hr />
+<p><strong>a) Target Orientation Construction (<span class="arithmatex">\(\Omega_{desired}\)</span>)</strong></p>
+<p>First, we determine the ideal orientation the vehicle should adopt to smoothly cancel the lateral error <span class="arithmatex">\(y\)</span>. We define the state <span class="arithmatex">\(\Omega = \tan(\tilde{\theta}_{eff})\)</span>.
+From Step 3, we have the relationship:</p>
+<div class="arithmatex">\[
+\frac{dy}{ds} = (1 - c(s)y) \tan(\tilde{\theta}_{eff}) = PSF \cdot \Omega
+\]</div>
+<p>Where <strong><span class="arithmatex">\(PSF = 1 - c(s)y\)</span></strong> is the <em>Path Scale Factor</em>. To impose a stable first-order convergence for the lateral error (<span class="arithmatex">\(\frac{dy}{ds} = -K_p \cdot y\)</span>), we must algebraically impose:</p>
+<div class="arithmatex">\[
+\Omega_{desired} = \frac{-K_p \cdot y}{PSF}
+\]</div>
+<p><strong>Why divide by the PSF?</strong> This is a crucial safety feature implemented in the code. The PSF represents the geometric deformation of space due to curvature. 
+* <strong>Inside a curve (<span class="arithmatex">\(c \cdot y &gt; 0\)</span>):</strong> The PSF is small (<span class="arithmatex">\(&lt;1\)</span>). Space is "compressed". To compensate, the controller divides by this small number to <em>increase</em> the target angle, forcing the robot to steer much harder to catch the track.
+* <strong>On a straight line (<span class="arithmatex">\(c = 0\)</span>):</strong> The <span class="arithmatex">\(PSF = 1\)</span>, returning seamlessly to a classic proportional law (<span class="arithmatex">\(\Omega_{desired} = -K_p \cdot y\)</span>).</p>
+<hr />
+<p><strong>b) Virtual Control (<span class="arithmatex">\(m_3\)</span>) Computation</strong></p>
+<p>Now, to make the system physically implementable, the Backstepping approach redefines <span class="arithmatex">\(m_3\)</span>. Instead of representing the raw spatial acceleration, <strong>the practical <span class="arithmatex">\(m_3\)</span> used in the control code represents the commanded spatial yaw rate</strong> (<span class="arithmatex">\(\frac{\dot{\theta}}{v}\)</span>).</p>
+<p>We impose a first-order stable dynamic relative to the traveled distance <span class="arithmatex">\(s\)</span>, governed by the derivative gain <span class="arithmatex">\(K_d\)</span>:</p>
+<div class="arithmatex">\[
+\frac{d\Omega}{ds} = K_d \cdot (\Omega - \Omega_{desired})
+\]</div>
+<p>Since we defined <span class="arithmatex">\(\Omega = \tan(\tilde{\theta}_{eff})\)</span>, we can expand the left side using the chain rule:</p>
+<div class="arithmatex">\[
+\frac{d\Omega}{ds} = \frac{1}{\cos^2(\tilde{\theta}_{eff})} \cdot \frac{d\tilde{\theta}_{eff}}{ds}
+\]</div>
+<p>Next, we must expand the spatial derivative of the effective heading (<span class="arithmatex">\(\frac{d\tilde{\theta}_{eff}}{ds}\)</span>). Knowing that <span class="arithmatex">\(\tilde{\theta}_{eff} \approx \theta - \theta_M\)</span>, its spatial variation is the difference between the vehicle's spatial yaw rate and the trajectory's curvature:</p>
+<div class="arithmatex">\[
+\frac{d\tilde{\theta}_{eff}}{ds} = \frac{d\theta}{ds} - \frac{d\theta_M}{ds} = \frac{\dot{\theta}}{\dot{s}} - c(s)
+\]</div>
+<p>We now inject our practical definition of <span class="arithmatex">\(m_3 = \frac{\dot{\theta}}{v}\)</span> (which implies <span class="arithmatex">\(\dot{\theta} = m_3 \cdot v\)</span>), and substitute the kinematic equation for <span class="arithmatex">\(\dot{s} = \frac{v \cos(\tilde{\theta}_{eff})}{PSF}\)</span>:</p>
+<div class="arithmatex">\[
+\frac{d\tilde{\theta}_{eff}}{ds} = \frac{m_3 \cdot v}{\frac{v \cos(\tilde{\theta}_{eff})}{PSF}} - c(s) = m_3 \cdot \frac{PSF}{\cos(\tilde{\theta}_{eff})} - c(s)
+\]</div>
+<p>Substituting this back into our chain rule expansion gives the full geometric evolution of our orientation:</p>
+<div class="arithmatex">\[
+\frac{d\Omega}{ds} = \frac{1}{\cos^2(\tilde{\theta}_{eff})} \left[ m_3 \cdot \frac{PSF}{\cos(\tilde{\theta}_{eff})} - c(s) \right]
+\]</div>
+<p>Finally, we equate this physical evolution to our desired stable dynamic (<span class="arithmatex">\(K_d \cdot (\Omega - \Omega_{desired})\)</span>) to isolate the exact virtual command <span class="arithmatex">\(m_3\)</span> that the vehicle must execute:</p>
+<div class="arithmatex">\[
+K_d \cdot (\Omega - \Omega_{desired}) = \frac{1}{\cos^2(\tilde{\theta}_{eff})} \left[ m_3 \cdot \frac{PSF}{\cos(\tilde{\theta}_{eff})} - c(s) \right]
+\]</div>
+<p>By multiplying both sides by <span class="arithmatex">\(\cos^2(\tilde{\theta}_{eff})\)</span> and moving the curvature term <span class="arithmatex">\(c(s)\)</span> to the left, we obtain:</p>
+<div class="arithmatex">\[
+\cos^2(\tilde{\theta}_{eff}) \cdot K_d \cdot (\Omega - \Omega_{desired}) + c(s) = m_3 \cdot \frac{PSF}{\cos(\tilde{\theta}_{eff})}
+\]</div>
+<p>Multiplying by the inverse of the remaining fraction strictly isolates <span class="arithmatex">\(m_3\)</span>, yielding the exact analytical equation implemented in the simulator:</p>
+<div class="arithmatex">\[
+m_3 = \frac{\cos^3(\tilde{\theta}_{eff})}{PSF} \cdot K_d \cdot (\Omega - \Omega_{desired}) + \frac{c(s) \cos(\tilde{\theta}_{eff})}{PSF}
+\]</div>
+<p>This powerful derivation successfully eliminates the need for <span class="arithmatex">\(c'(s)\)</span> and <span class="arithmatex">\(\dot{\beta}\)</span>. The resulting command is broken down into two highly intuitive physical terms:</p>
+<div class="admonition scilab">
+<p class="admonition-title">Front_Axle.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">Virtual_Control</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="nb">cos</span><span class="p">(</span><span class="n">Eff_R_H</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Kd</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Omega</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Omega_Desired</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">PSF</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">C_H_Pred</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">Eff_R_H</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">PSF</span><span class="w"> </span><span class="p">;</span>
+</span></code></pre></div>
+</div>
+<ul>
+<li><strong>Proportional Term:</strong> <span class="arithmatex">\(\frac{\cos^3(\tilde{\theta}_{eff})}{PSF} \cdot K_d \cdot (\Omega - \Omega_{desired})\)</span> drives the current orientation toward the target. The <span class="arithmatex">\(\cos^3\)</span> factor mathematically emerges from the derivative of the tangent function during the change of basis.</li>
+<li><strong>Feedforward Term:</strong> <span class="arithmatex">\(\frac{c(s) \cos(\tilde{\theta}_{eff})}{PSF}\)</span> anticipates the upcoming curvature (<code>C_H_Pred</code> in the simulator) so the robot physically begins curving its trajectory before a tracking error even appears.</li>
+</ul>
+<hr />
+<p><strong>c) Final Steering Command Synthesis (<span class="arithmatex">\(\delta_F\)</span>)</strong></p>
+<p>Finally, we "walk back" up to the physical steering angle by inverting the last kinematic layer (the yaw rate). We isolate <span class="arithmatex">\(\delta_F\)</span> so that the vehicle physically executes the exact <span class="arithmatex">\(m_3\)</span> requested by the cascade:</p>
+<div class="arithmatex">\[
+\delta_F = \arctan\left( \frac{L}{\cos(\beta_R + \delta_R)} m_3 + \tan(\delta_R + \beta_R) \right) - \beta_F
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">Front_Axle.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">F_Steer_A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">atan</span><span class="p">((</span><span class="n">Wheelbase</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">R_Steer_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Virtual_Control</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">tan</span><span class="p">(</span><span class="n">R_Steer_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">F_Beta</span><span class="w"> </span><span class="p">;</span>
+</span></code></pre></div>
+</div>
+<p>This cascaded structure (Compute <span class="arithmatex">\(\Omega_{desired} \rightarrow\)</span> Compute <span class="arithmatex">\(m_3 \rightarrow\)</span> Compute <span class="arithmatex">\(\delta_F\)</span>) ensures that every step has physical meaning and remains numerically stable, even in severe off-road slipping conditions.</p>
+<h2 id="63-exact-linearization-with-curvature-feedforward">6.3. Exact Linearization with Curvature Feedforward</h2>
+<p>The control law derived in section 6.2 (Backstepping) is highly effective for maintaining a null tracking error on smooth paths. However, it is fundamentally reactive: it computes a correction based on the <em>current</em> measured error. In high-speed agricultural applications or sharp turns, the delay between error detection and actuator response can lead to a "cutting the corner" effect.</p>
+<p>To solve this, section 6.3 implements an anticipation logic. Instead of basing the Backstepping command on the current state, we project the robot's kinematics into the future using a prediction horizon <span class="arithmatex">\(H_{Pred}\)</span>.</p>
+<h3 id="631-the-prediction-loop-via-euler-integration">6.3.1. The Prediction Loop via Euler Integration</h3>
+<p>The simulator runs a high-speed internal prediction loop that integrates the non-linear kinematics over a series of small time steps <span class="arithmatex">\(\Delta_t\)</span> (set to 0.05s in the code). Starting from the current measured lateral error <span class="arithmatex">\(y\)</span> and heading error <span class="arithmatex">\(\tilde{\theta}\)</span>, the predicted states are updated as follows:</p>
+<ol>
+<li><strong>Update of Predicted Lateral Error:</strong>
+    The variation of the lateral error over one prediction step is:</li>
+</ol>
+<div class="arithmatex">\[
+y_{pred}(k+1) = y_{pred}(k) + (v \cdot \sin(\tilde{\theta}_{eff}(k)) \cdot \Delta t_{p})
+\]</div>
+<ol>
+<li><strong>Update of Predicted Heading Error:</strong>
+    The heading error evolution is computed by subtracting the trajectory's angular velocity from the vehicle's yaw rate:</li>
+</ol>
+<div class="arithmatex">\[
+\tilde{\theta}_{pred}(k+1) = \tilde{\theta}_{pred}(k) + \Delta t_{p} \cdot \left[ \frac{v \cos(\beta_R) (\tan(\delta_F + \beta_F) - \tan(\delta_R + \beta_R))}{L} - \frac{v \cdot c(s) \cos(\tilde{\theta}_{eff})}{1 - y_{pred} \cdot c(s)} \right]
+\]</div>
+<p>This loop repeats for <span class="arithmatex">\(N = \frac{H_{Pred}}{\Delta t_{p}}\)</span> iterations. The final values of <span class="arithmatex">\(y_{pred}\)</span> and <span class="arithmatex">\(\tilde{\theta}_{pred}\)</span> represent the expected position of the robot at the end of the horizon if the current steering remains constant.</p>
+<h3 id="632-feedforward-control-synthesis">6.3.2. Feedforward Control Synthesis</h3>
+<p>Once the predicted errors are known, the simulator applies the same Backstepping logic established in section 6.2, but substituting the current errors with the predicted ones. This allows the robot to "see" an upcoming error and begin its steering maneuver prematurely.</p>
+<p>The virtual command <span class="arithmatex">\(m_3\)</span> becomes:</p>
+<div class="arithmatex">\[
+m_3 = \frac{\cos^3(\tilde{\theta}_{pred})}{PSF} \cdot K_d \cdot (\tan(\tilde{\theta}_{pred}) - \Omega_{desired, pred}) + \frac{c(s) \cos(\tilde{\theta}_{pred})}{PSF}
+\]</div>
+<p>By utilizing this anticipated state, the robot effectively cancels the phase lag of the system, ensuring the trajectory is followed with much higher precision in transient phases.</p>
+<div class="admonition scilab">
+<p class="admonition-title">Front_Axle.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Parameters</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">Y_Desired</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w">                   </span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">Conv_Distance</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="w">                   </span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">Kp</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Conv_Distance</span><span class="w">  </span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">Kd</span><span class="w">            </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Kp</span><span class="w">              </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">F_Steer_A</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="n">N1_F_Stee_A</span><span class="w">           </span><span class="p">;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Path_Scale_Factor</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">Path_Scale_Factor</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Lat_Err</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="n">PSF</span><span class="w">               </span><span class="p">=</span><span class="w"> </span><span class="n">Path_Scale_Factor</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">if</span><span class="w"> </span><span class="n">PSF</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="n">then</span><span class="w"> </span><span class="n">PSF</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">end</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Prediction</span><span class="w"> </span><span class="n">Loop</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb">round</span><span class="p">(</span><span class="mi">20</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">H_Pred</span><span class="p">))</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="n">Lat_Err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Lat_Err</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Speed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">H_Err</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Steer_A</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.05</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="n">H_Err</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="n">H_Err</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.05</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Speed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">R_Beta</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nb">tan</span><span class="p">(</span><span class="n">F_Steer_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">F_Beta</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">tan</span><span class="p">(</span><span class="n">R_Steer_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Wheelbase</span><span class="w"> </span><span class="k">...</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">                    </span><span class="o">-</span><span class="w"> </span><span class="mf">0.05</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Speed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">R_Steer_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">H_Err</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">PSF</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="k">end</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Effective</span><span class="w"> </span><span class="n">Rear</span><span class="w"> </span><span class="n">Heading</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="n">Eff_R_H</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="n">H_Err</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Steer_A</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Desired</span><span class="w"> </span><span class="n">Yaw</span><span class="w"> </span><span class="n">Rate</span><span class="w"> </span><span class="n">Computation</span><span class="w"> </span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="n">Omega_Desired</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Kp</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Lat_Err</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Y_Desired</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">PSF</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="n">Omega</span><span class="w">         </span><span class="p">=</span><span class="w"> </span><span class="nb">tan</span><span class="p">(</span><span class="n">Eff_R_H</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Computation</span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="n">Virtual_Control</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="nb">cos</span><span class="p">(</span><span class="n">Eff_R_H</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Kd</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Omega</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Omega_Desired</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">PSF</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">C_H_Pred</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">Eff_R_H</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">PSF</span><span class="w">               </span><span class="p">;</span><span class="w">      </span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="n">F_Steer_A</span><span class="w">                   </span><span class="p">=</span><span class="w"> </span><span class="nb">atan</span><span class="p">((</span><span class="n">Wheelbase</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">R_Steer_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Virtual_Control</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">tan</span><span class="p">(</span><span class="n">R_Steer_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">F_Beta</span><span class="w"> </span><span class="p">;</span>
+</span></code></pre></div>
+</div>
+<h2 id="64-actuator-delay-compensation-via-generalized-predictive-control-gpc">6.4. Actuator Delay Compensation via Generalized Predictive Control (GPC)</h2>
+<p>In a real agricultural vehicle, the steering command <span class="arithmatex">\(\delta_{cmd}\)</span> calculated by the high-level controller is not instantly executed by the wheels. Hydraulic cylinders and electric motors follow a first-order dynamic:</p>
+<div class="arithmatex">\[
+\delta_{cmd} = \delta +\underbrace{\tau \dot{\delta}}_{\text{Actuator Inertia }}
+\]</div>
+<p>This section details how the simulator uses Generalized Predictive Control (GPC) to compensate for this lag by calculating an optimal sequence of commands that forces the mechanical steering to track the desired trajectory orientation.</p>
+<h3 id="641-future-reference-desired-response">6.4.1. Future Reference &amp; Desired Response</h3>
+<p>The GPC algorithm first defines where the steering <em>should</em> be in the future. We define a future reference <span class="arithmatex">\(\delta_{future}\)</span> based on the curvature <span class="arithmatex">\(c(s+H)\)</span> at the end of the lookahead distance:</p>
+<div class="arithmatex">\[
+\delta_{future} = \arctan(L \cdot c_{future})
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">GPC.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">function</span><span class="w"> </span>Delta_Future<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">Future_Reference</span><span class="p">(</span>Curvature_Future,Wheelbase<span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">Delta_Future</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">Wheelbase</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Curvature_Future</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<p>To avoid violent actuator movements, we do not target this reference abruptly. We define a <strong>Desired Response</strong> trajectory that smoothly bridges the gap between the current steering angle <span class="arithmatex">\(\delta(k)\)</span> and the future reference <span class="arithmatex">\(\delta_{future}\)</span> using a smoothing factor <span class="arithmatex">\(\gamma \in [0, 1]\)</span>:</p>
+<div class="arithmatex">\[
+\delta_{desired}(i) = \delta_{future} - \gamma^i \cdot (\delta_{future} - \delta(k))
+\]</div>
+<p>where <span class="arithmatex">\(i\)</span> is the step index within the prediction horizon.</p>
+<div class="admonition scilab">
+<p class="admonition-title">GPC.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">function</span><span class="w"> </span>Delta_Desired<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">Desired_Response</span><span class="p">(</span>Delta_Future, Current_Delta, Prediction_Horizon, Gamma<span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">Delta_Desired</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Prediction_Horizon</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Prediction_Horizon</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">Delta_Desired</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Delta_Future</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">Gamma</span><span class="o">^</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Delta_Future</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Current_Delta</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">end</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<h3 id="642-free-and-forced-responses">6.4.2. Free and Forced Responses</h3>
+<p>To predict the future behavior of the steering motor, we represent the actuator as a discrete-time state-space system:</p>
+<div class="arithmatex">\[
+X(k+1) = A \cdot X(k) + B \cdot u(k)
+\]</div>
+<div class="arithmatex">\[
+y(k) = C \cdot X(k)
+\]</div>
+<p>The future output of the actuator over the horizon is decomposed into two parts:</p>
+<ol>
+<li><strong>The Free Response (<span class="arithmatex">\(Y_{free}\)</span>):</strong>
+    This is the evolution of the steering angle if we keep the command constant (<span class="arithmatex">\(u=0\)</span>). It depends only on the current state of the motor (inertia, current position):</li>
+</ol>
+<div class="arithmatex">\[
+Y_{free}(i) = C \cdot A^i \cdot X(k)
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">GPC.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">function</span><span class="w"> </span>Free_Response<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">Free_Response_Computation</span><span class="p">(</span>Current_State, System_Matrix, Prediction_Horizon<span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">C</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">Free_Response</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Prediction_Horizon</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Prediction_Horizon</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="n">Free_Response</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">System_Matrix</span><span class="o">^</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Current_State</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">end</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<ol>
+<li><strong>The Forced Response (<span class="arithmatex">\(Y_{forced}\)</span>):</strong>
+    This is the additional movement caused by a new sequence of control increments <span class="arithmatex">\(\Delta u\)</span>. In our simulator, we assume a "Step" (Echelon) command shape. The contribution of a unit command to the output is:</li>
+</ol>
+<div class="arithmatex">\[
+Y_{forced}(i) = \sum_{j=0}^{i-1} C \cdot A^{i-1-j} \cdot B
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">GPC.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">function</span><span class="w"> </span>Forced_Response<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">Forced_Response_Function</span><span class="p">(</span>System_Matrix, Input_Matrix, Prediction_Horizon<span class="p">)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">C</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">Forced_Response</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Prediction_Horizon</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Prediction_Horizon</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="n">Forced_Response_Valors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nb">j</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="n">Forced_Response_Valors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Forced_Response_Valors</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">System_Matrix</span><span class="o">^</span><span class="p">(</span><span class="nb">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">j</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Input_Matrix</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="k">end</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="n">Forced_Response</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Forced_Response_Valors</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="k">end</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<h3 id="643-optimization-and-regularization">6.4.3. Optimization and Regularization</h3>
+<p>The goal is to find the optimal control increment <span class="arithmatex">\(\mu\)</span> that minimizes the squared error between the desired response and the predicted response. We define the cost function <span class="arithmatex">\(J\)</span>:</p>
+<div class="arithmatex">\[
+J = \sum_{i=1}^{N} (\delta_{desired}(i) - Y_{predicted}(i))^2 + \lambda \cdot \mu^2
+\]</div>
+<p>Substituting <span class="arithmatex">\(Y_{predicted} = Y_{free} + \mu \cdot Y_{forced}\)</span> and solving for the minimum (<span class="arithmatex">\(\frac{\partial J}{\partial \mu} = 0\)</span>), we isolate the optimal scaling factor <span class="arithmatex">\(\mu_{opt}\)</span>:</p>
+<div class="arithmatex">\[
+\mu_{opt} = \frac{\sum_{i=1}^{N} (\delta_{desired}(i) - Y_{free}(i)) \cdot Y_{forced}(i)}{\sum_{i=1}^{N} Y_{forced}(i)^2 + \lambda}
+\]</div>
+<p>The term <span class="arithmatex">\(\lambda\)</span> is a <strong>regularization factor</strong> that penalizes excessive control effort, preventing the steering motor from vibrating or saturating.</p>
+<div class="admonition scilab">
+<p class="admonition-title">GPC.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">function</span><span class="w"> </span>Delta_Pred<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">Optimal_Minimization</span><span class="p">(</span>Delta_Desired, Free_Response, Forced_Response, Command_Shape<span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="o">//</span><span class="w"> </span><span class="n">Criteria</span><span class="w"> </span><span class="n">d</span><span class="p">(</span><span class="n">n_i</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Delta_Desired</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Free_Response</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">R1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">R2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">Lambda</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.05</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">Prediction_Horizon</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">length</span><span class="p">(</span><span class="n">Delta_Desired</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="k">for</span><span class="w"> </span><span class="nb">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Prediction_Horizon</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="n">d_i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Delta_Desired</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Free_Response</span><span class="p">(</span><span class="nb">i</span><span class="p">);</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">    </span><span class="n">R1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">R1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">d_i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Forced_Response</span><span class="p">(</span><span class="nb">i</span><span class="p">));</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="n">R2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">R2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">Forced_Response</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">);</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="k">end</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="n">mu_opt</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">R1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">R2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Lambda</span><span class="p">);</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="n">Delta_Pred</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">mu_opt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Command_Shape</span><span class="p">;</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<h3 id="644-high-order-nonlinear-regulation-spatial-pid">6.4.4. High-Order Nonlinear Regulation (Spatial PID)</h3>
+<p>In standard exact linearization (as seen in Section 6.2), the system uses a first-order proportional decay to correct the lateral error. While mathematically elegant, a pure first-order response lacks the stiffness and disturbance rejection required for heavy agricultural machinery operating on muddy, uneven terrain or constant side-slopes.</p>
+<p>To provide the Generalized Predictive Control (GPC) with a robust foundation, we implement a <strong>second-order spatial dynamic</strong> (a Spatial PID). This requires computing a specific corrective effort, denoted as <span class="arithmatex">\(v_{cor}\)</span> (<code>Deviation_Correction_Effort</code> in the software).</p>
+<hr />
+<p><strong>a) What does <span class="arithmatex">\(v_{cor}\)</span> represent?</strong></p>
+<p><span class="arithmatex">\(v_{cor}\)</span> is a <strong>desired spatial acceleration</strong>. Just as a standard PID controller outputs a desired physical acceleration (<span class="arithmatex">\(\frac{d^2y}{dt^2}\)</span>) to reach a target speed, our spatial controller outputs a desired spatial acceleration (<span class="arithmatex">\(\frac{d^2y}{ds^2}\)</span>) to reach the target path. It defines exactly how the lateral error's rate of change (<span class="arithmatex">\(y'\)</span>) should accelerate or decelerate per meter traveled (<span class="arithmatex">\(s\)</span>).</p>
+<hr />
+<p><strong>b) The Mathematical Origin: Defining the Desired Dynamic</strong></p>
+<p>We want the lateral error <span class="arithmatex">\(y\)</span> to behave like a stable, damped harmonic oscillator over the distance traveled <span class="arithmatex">\(s\)</span>. We impose the following closed-loop differential equation for the error <span class="arithmatex">\(\epsilon = y - y_{des}\)</span>:</p>
+<div class="arithmatex">\[
+\epsilon^{\prime\prime} + K_d \cdot \epsilon' + K_p \cdot \epsilon + K_i \cdot \int \epsilon \, ds = 0
+\]</div>
+<p>Assuming the desired path is the centerline (<span class="arithmatex">\(y_{des} = 0\)</span>), then <span class="arithmatex">\(\epsilon = y\)</span>. We isolate the required second-order derivative <span class="arithmatex">\(y^{\prime\prime}\)</span> to define our target PID effort (<span class="arithmatex">\(v_{PID}\)</span>):</p>
+<div class="arithmatex">\[
+y^{\prime\prime}_{desired} = -K_d \cdot y' - K_p \cdot y - K_i \cdot \int y \, ds
+\]</div>
+<p>From the chained system derivation, we already established that <span class="arithmatex">\(y'\)</span> depends on the <em>Path Scale Factor</em> (<span class="arithmatex">\(PSF = 1 - c(s)y\)</span>) and the effective heading:</p>
+<div class="arithmatex">\[
+y' = PSF \cdot \tan(\tilde{\theta}_{eff})
+\]</div>
+<p>Substituting <span class="arithmatex">\(y'\)</span> into the PID equation gives our baseline effort:</p>
+<div class="arithmatex">\[
+v_{PID} = -K_d \cdot \big( PSF \cdot \tan(\tilde{\theta}_{eff}) \big) - K_p \cdot y - K_i \cdot \int y \, ds
+\]</div>
+<hr />
+<p><strong>c) Deriving the Physical System Acceleration (<span class="arithmatex">\(y^{\prime\prime}\)</span>)</strong></p>
+<p>To force the vehicle to obey the PID dynamic, we must find the expression for the actual physical acceleration <span class="arithmatex">\(y^{\prime\prime}\)</span> of the robot. We derive <span class="arithmatex">\(y' = PSF \cdot \tan(\tilde{\theta}_{eff})\)</span> with respect to the curvilinear abscissa <span class="arithmatex">\(s\)</span> using the product rule:</p>
+<div class="arithmatex">\[
+y^{\prime\prime} = \frac{d}{ds} \Big( PSF \cdot \tan(\tilde{\theta}_{eff}) \Big)
+\]</div>
+<div class="arithmatex">\[
+y^{\prime\prime} = \frac{d(PSF)}{ds} \cdot \tan(\tilde{\theta}_{eff}) + PSF \cdot \frac{d}{ds} \Big( \tan(\tilde{\theta}_{eff}) \Big)
+\]</div>
+<p>First, we expand the geometric derivative of the PSF (<span class="arithmatex">\(PSF = 1 - c(s)y\)</span>):</p>
+<div class="arithmatex">\[
+\frac{d(PSF)}{ds} = \frac{d}{ds} \big( 1 - c(s)y \big) = -c'(s) \cdot y - c(s) \cdot y'
+\]</div>
+<p>In agricultural robotics, the curvature varies slowly enough over short horizons that we can assume <span class="arithmatex">\(c'(s) \approx 0\)</span>. Substituting <span class="arithmatex">\(y' = PSF \cdot \tan(\tilde{\theta}_{eff})\)</span>:</p>
+<div class="arithmatex">\[
+\frac{d(PSF)}{ds} \approx -c(s) \cdot PSF \cdot \tan(\tilde{\theta}_{eff})
+\]</div>
+<p>Now, we substitute this back into the <span class="arithmatex">\(y^{\prime\prime}\)</span> equation:</p>
+<div class="arithmatex">\[
+y^{\prime\prime} = \Big[ -c(s) \cdot PSF \cdot \tan(\tilde{\theta}_{eff}) \Big] \cdot \tan(\tilde{\theta}_{eff}) + PSF \cdot \frac{d}{ds} \Big( \tan(\tilde{\theta}_{eff}) \Big)
+\]</div>
+<div class="arithmatex">\[
+y^{\prime\prime} = -c(s) \cdot PSF \cdot \tan^2(\tilde{\theta}_{eff}) + PSF \cdot \frac{d}{ds} \Big( \tan(\tilde{\theta}_{eff}) \Big)
+\]</div>
+<hr />
+<p><strong>d) Isolating the Control Effort</strong></p>
+<p>The simulator's high-level controller manipulates the vehicle's orientation variation, which is the term:</p>
+<div class="arithmatex">\[
+PSF \cdot \frac{d}{ds}(\tan(\tilde{\theta}_{eff}))
+\]</div>
+<p>We define this term as our total control input <span class="arithmatex">\(v_{cor}\)</span>. Therefore:</p>
+<div class="arithmatex">\[
+y^{\prime\prime} = -c(s) \cdot PSF \cdot \tan^2(\tilde{\theta}_{eff}) + v_{cor}
+\]</div>
+<p>To ensure the robot follows our desired PID behavior, we set the physical acceleration equal to the desired acceleration (<span class="arithmatex">\(y^{\prime\prime} = v_{PID}\)</span>):</p>
+<div class="arithmatex">\[
+v_{PID} = -c(s) \cdot PSF \cdot \tan^2(\tilde{\theta}_{eff}) + v_{cor}
+\]</div>
+<p>Isolating <span class="arithmatex">\(v_{cor}\)</span>:</p>
+<div class="arithmatex">\[
+v_{cor} = v_{PID} + c(s) \cdot PSF \cdot \tan^2(\tilde{\theta}_{eff})
+\]</div>
+<p>Finally, by expanding the <span class="arithmatex">\(v_{PID}\)</span> term derived in Step 2, we obtain the complete analytical formula implemented in the Scilab code:</p>
+<div class="arithmatex">\[
+v_{cor} = \underbrace{-K_d \cdot PSF \cdot \tan(\tilde{\theta}_{eff}) - K_p \cdot y - K_i \cdot \int y \, ds}_{\text{Spatial PID Regulation}} + \underbrace{c(s) \cdot PSF \cdot \tan^2(\tilde{\theta}_{eff})}_{\text{Geometric Feedforward Cancellation}}
+\]</div>
+<hr />
+<p><strong>e) Physical Interpretation</strong></p>
+<p>The formula is composed of two distinct parts that allow the vehicle to navigate complex environments:</p>
+<ol>
+<li><strong>The Spatial PID Regulation:</strong> This is the reactive part. It calculates the necessary acceleration to return to the path based on the current lateral error (<span class="arithmatex">\(y\)</span>), the current direction of travel (<span class="arithmatex">\(\tan\)</span>), and the history of past errors (the integral term). This ensures the robot "stiffens" its reaction if a disturbance like wind or a slope pushes it away.</li>
+<li><strong>The Geometric Feedforward Cancellation:</strong> This is the proactive part. When a vehicle is tilted relative to a curved path (<span class="arithmatex">\(\tan \neq 0\)</span> and <span class="arithmatex">\(c \neq 0\)</span>), the pure geometry of the Frenet frame creates an artificial outward "push" on the lateral error. This term calculates that distortion and cancels it exactly.</li>
+</ol>
+<p>By mathematically neutralizing the frame's curvature, the controller allows the PID terms to operate as if the vehicle were on a perfectly straight line, significantly improving tracking precision and stability in sharp turns.</p>
+<h3 id="645-analytic-factorization-the-u-and-v-terms">6.4.5. Analytic Factorization: The <span class="arithmatex">\(U\)</span> and <span class="arithmatex">\(V\)</span> Terms</h3>
+<p>The introduction of the variables <span class="arithmatex">\(U\)</span> and <span class="arithmatex">\(V\)</span> is a mathematical strategy designed to decouple the steering command. In a Generalized Predictive Control (GPC) framework, we need to isolate the <strong>corrective effort</strong> from the <strong>trajectory-following effort</strong>.</p>
+<p>To understand where these terms originate, we must start from the final non-linear steering law derived in the Backstepping section (Section 6.2.6):</p>
+<div class="arithmatex">\[
+\tan(\delta_F + \beta_F) = \frac{L}{\cos(\beta_R + \delta_R)} m_3 + tan(\delta_R + \beta_R)
+\]</div>
+<hr />
+<p><strong>a) Decomposing the Virtual Command <span class="arithmatex">\(m_3\)</span></strong></p>
+<p>In Section 6.4.4, we established that the virtual spatial yaw rate <span class="arithmatex">\(m_3\)</span> is composed of a feedforward term (curvature) and a feedback term (correction via <span class="arithmatex">\(v_{cor}\)</span>):</p>
+<div class="arithmatex">\[
+m_3 = \underbrace{\frac{c(s) \cos(\tilde{\theta}_{eff})}{PSF}}_{\text{Curvature term}} + \underbrace{\frac{\cos^3(\tilde{\theta}_{eff})}{PSF^2} v_{cor}}_{\text{Corrective term}}
+\]</div>
+<p>By substituting this expression of <span class="arithmatex">\(m_3\)</span> into our steering law, we get:</p>
+<div class="arithmatex">\[
+\tan(\delta_F + \beta_F) = \frac{L}{\cos(\beta_R + \delta_R)} \left[ \frac{c(s) \cos(\tilde{\theta}_{eff})}{PSF} + \frac{\cos^3(\tilde{\theta}_{eff})}{PSF^2} v_{cor} \right] + \tan(\delta_R + \beta_R)
+\]</div>
+<hr />
+<p><strong>b) Identifying <span class="arithmatex">\(U\)</span> and <span class="arithmatex">\(V\)</span></strong></p>
+<p>We can now distribute the leading fraction across the two terms inside the brackets. This allows us to group the variables into two distinct physical components:</p>
+<div class="arithmatex">\[
+\tan(\delta_F + \beta_F) = \underbrace{\frac{L}{\cos(\beta_R + \delta_R)} \left( \frac{c(s) \cos(\tilde{\theta}_{eff})}{PSF} \right)}_{U} + \underbrace{\frac{L}{\cos(\beta_R + \delta_R)} \left( \frac{\cos^3(\tilde{\theta}_{eff})}{PSF^2} v_{cor} \right) + \tan(\delta_R + \beta_R)}_{V}
+\]</div>
+<ul>
+<li><strong><span class="arithmatex">\(U\)</span> (The Trajectory Component):</strong> This term represents the theoretical steering angle required to follow the path perfectly, assuming the robot is already perfectly aligned with the trajectory (<span class="arithmatex">\(v_{cor} = 0\)</span>). It depends strictly on the wheelbase <span class="arithmatex">\(L\)</span>, the local curvature <span class="arithmatex">\(c(s)\)</span>, and the path scale factor.</li>
+<li><strong><span class="arithmatex">\(V\)</span> (The Correction &amp; Coupling Component):</strong> This term aggregates the corrective effort (<span class="arithmatex">\(v_{cor}\)</span>) required to cancel current tracking errors, and adds the compensation for the rear axle's current orientation ($<code>\tan(\delta_R + \beta_R)</code>$).</li>
+</ul>
+<p>The total steering command (compensated for slip) is thus simplified to a clean algebraic sum of tangents:</p>
+<div class="arithmatex">\[
+\tan(\delta_{total} + \beta_F) = U + V
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">Front_Axle.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">U_Term</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">Wheelbase</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">R_Steer_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">Eff_R_H</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">PSF</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">V_Term</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">Wheelbase</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">R_Steer_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="p">((</span><span class="nb">cos</span><span class="p">(</span><span class="n">Eff_R_H</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">PSF</span><span class="o">^</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Deviation_Correction_Effort</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">tan</span><span class="p">(</span><span class="n">R_Steer_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">R_Beta</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span></code></pre></div>
+</div>
+<h3 id="646-geometric-decoupling-via-trigonometric-identity">6.4.6. Geometric Decoupling via Trigonometric Identity</h3>
+<p>The GPC algorithm needs to optimize the <strong>corrective steering angle</strong> <span class="arithmatex">\(\delta_{corr}\)</span> specifically. However, because the system is non-linear, we cannot simply subtract angles (i.e., <span class="arithmatex">\(\delta_{corr} \neq \delta_{total} - \delta_{traj}\)</span>). We must remain in the "tangent space" to preserve mathematical exactness.</p>
+<hr />
+<p><strong>a) Defining the Target Angles</strong></p>
+<p>We define:</p>
+<ul>
+<li>The total angle: <span class="arithmatex">\(A = \delta_{total} + \beta_F\)</span>, where <span class="arithmatex">\(\tan(A) = U + V\)</span>.</li>
+<li>The trajectory angle: <span class="arithmatex">\(B = \delta_{traj}\)</span>, where <span class="arithmatex">\(\tan(B) = U\)</span>.</li>
+</ul>
+<p>We seek the corrective angle <span class="arithmatex">\(\delta_{corr}\)</span> such that the total steering is the sum of the trajectory and the correction:</p>
+<div class="arithmatex">\[
+\delta_{total} + \beta_F = \delta_{traj} + \delta_{corr} \implies \delta_{corr} = A - B
+\]</div>
+<hr />
+<p><strong>b) Applying the Tangent Subtraction Identity</strong></p>
+<p>To find <span class="arithmatex">\(\delta_{corr}\)</span>, we use the fundamental trigonometric identity for the subtraction of tangents:</p>
+<div class="arithmatex">\[
+\tan(A - B) = \frac{\tan A - \tan B}{1 + \tan A \tan B}
+\]</div>
+<p>Substituting our definitions of <span class="arithmatex">\(\tan A\)</span> and <span class="arithmatex">\(\tan B\)</span>:</p>
+<div class="arithmatex">\[
+\tan(\delta_{corr}) = \frac{(U + V) - (U)}{1 + (U + V) \cdot U}
+\]</div>
+<p>Expanding the denominator:</p>
+<div class="arithmatex">\[
+\tan(\delta_{corr}) = \frac{V}{1 + U^2 + UV}
+\]</div>
+<hr />
+<p><strong>c) Final Corrective Effort</strong></p>
+<p>By applying the arctangent function, we isolate the exact corrective steering angle:</p>
+<div class="arithmatex">\[
+\delta_{corr} = \arctan\left( \frac{V}{1 + U^2 + UV} \right)
+\]</div>
+<p>This formula is the one used in the Scilab code to feed the GPC optimizer. It ensures that the predictive controller only works on the "error-correcting" portion of the steering, while the path curvature is handled separately by the exact linearization logic. This decoupling is what allows the simulator to maintain sub-centimeter precision even during sharp turns with slow hydraulic actuators.</p>
+<div class="admonition scilab">
+<p class="admonition-title">Front_Axle.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">Corrective_Steering</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">V_Term</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">U_Term</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">U_Term</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">V_Term</span><span class="p">));</span>
+</span></code></pre></div>
+</div>
+<h3 id="647-final-command-synthesis">6.4.7. Final Command Synthesis</h3>
+<p>The final steering command applied to the front axle is a synthesis of two distinct control efforts:</p>
+<ol>
+<li><strong>Corrective Steering (<span class="arithmatex">\(\delta_{corr}\)</span>):</strong> The term derived above that corrects current spatial errors (<span class="arithmatex">\(y, \tilde{\theta}\)</span>) and compensates for dynamic slip.</li>
+<li><strong>Optimal Trajectory Steering (<span class="arithmatex">\(\delta_{GPC}\)</span>):</strong> The predictive term calculated in section 6.4.3 that prepares the actuator for upcoming changes in path geometry.</li>
+</ol>
+<div class="arithmatex">\[
+\delta_{F, final} = \delta_{corr} + \delta_{GPC, optimal}
+\]</div>
+<p>By combining the geometric precision of exact linearization with the temporal foresight of GPC, the simulator achieves high-fidelity tracking even with slow, heavy-duty hydraulic actuators.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy", "navigation.prune", "toc.integrate"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../Theme/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../Theme/3_Dropdown/nav_dropdown.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1688 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/Projects/Projet_Simulateur/Theory/2_Path_Tracking_and_Error_Computation/">
+      
+      
+        <link rel="prev" href="../1_Simulator_Overview/">
+      
+      
+        <link rel="next" href="../3_Mathematical_Foundations_%26_Modeling/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/logo_SB.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Path Tracking - Sam Bouchaud</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+  <link rel="stylesheet" href="../../../../Theme/2_Documentation_Project/Extra_Documentation.css">
+
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&display=swap">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&family=Pacifico&display=swap">
+    
+      <link rel="stylesheet" href="../../../../Theme/3_Dropdown/nav_dropdown.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-path-tracking-and-error-computation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Sam Bouchaud" class="md-header__button md-logo" aria-label="Sam Bouchaud" data-md-component="logo">
+      
+  <img src="../../../../assets/logo_SB.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sam Bouchaud
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Path Tracking
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Homepage
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index_4WS_Simu/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Simulator Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Sam Bouchaud" class="md-nav__button md-logo" aria-label="Sam Bouchaud" data-md-component="logo">
+      
+  <img src="../../../../assets/logo_SB.svg" alt="logo">
+
+    </a>
+    Sam Bouchaud
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homepage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulator Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Simulator Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index_4WS_Simu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_Simulator_Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Tracking
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-trajectory-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Trajectory Filtering
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-closest-point-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Closest Point Index
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-anticipation-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Anticipation Logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-trajectory-projection-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Trajectory Projection Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4. Trajectory Projection Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-polynomial-fitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1. Polynomial Fitting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-vector-geometric-projection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2. Vector Geometric Projection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-curvature-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5. Curvature Calculation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-computation-of-tracking-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6. Computation of Tracking Errors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6. Computation of Tracking Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261-the-distance-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.1. The Distance Vector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262-derivation-of-the-lateral-error-y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.2. Derivation of the Lateral Error (\(y\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263-derivation-of-the-heading-error-tildetheta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3. Derivation of the Heading Error (\(\tilde{\theta}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264-angular-fitting-and-normalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.4. Angular Fitting and Normalization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265-summary-of-the-error-vector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.5. Summary of the Error Vector
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-tracking-point-offset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7. Tracking Point Offset
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7. Tracking Point Offset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271-mathematical-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1. Mathematical Transformation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272-physical-impact-on-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.2. Physical Impact on Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3_Mathematical_Foundations_%26_Modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4_Vehicle_Dynamics_and_Physical_Modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicle Dynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5_State_Observers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Observers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6_Front_Axle_Control_Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Front Axle Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7_Rear_Axle_Control_Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rear Axle Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Implementation/1_Parameters_Launch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index_Results_4WS_Simu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="2-path-tracking-and-error-computation">2. Path Tracking and Error Computation</h1>
+<p>Before any control law can be applied, the raw reference trajectory must be processed to provide the robot with clean, actionable geometric data. Agricultural paths, often recorded via RTK GPS, contain noise and discrete jumps that can induce high-frequency oscillations in the steering actuators.</p>
+<p>Below is the architecture of this part:</p>
+<p><br></p>
+<pre class="mermaid"><code>flowchart LR
+    InState1([State Vector]):::signal
+    FCP[Find Closest Point]
+
+    subgraph Pos_Block [Desired Pos]
+        FCPD[Find Current Pos Desired]
+        FFPD[Find Future Pos Desired]
+    end
+
+    subgraph Compute_Block [Compute Block]
+        Ind([Index]):::signal
+        InState2([State Vector]):::signal
+
+        CC1[Calculate Curvature]
+        TE[Tracking Errors]
+        CC2[Calculate Curvature]
+    end
+
+    subgraph Results_Block [Results]
+        C[C]:::signal
+        L_Err([L_Err]):::signal
+        H_Err([H_Err]):::signal
+        C_H_Pred([C_H_Pred]):::signal
+    end
+
+%% --------------------------- Global Connections ---------------------------
+    InState1 --&gt; FCP
+    FCP --&gt; |Index| FCPD &amp; FFPD
+
+    %% Connections to calculations
+    FCPD --&gt;|Current Pos Desired| CC1 &amp; TE
+    Ind --&gt; CC1
+    InState2 --&gt; TE
+    FFPD --&gt;|Future Pos Desired&lt;br&gt;Future Index| CC2
+
+    %% Connections to results (Mermaid stacks results automatically)
+    CC1 --&gt; C
+    TE --&gt; L_Err &amp; H_Err
+    CC2 --&gt; C_H_Pred
+
+%% --------------------------- ANCHORING ---------------------------
+    %% These two lines prevent orphan variables from drifting left.
+    %% They force 'Index' and 'State Vector' to render AFTER block 1.
+    FCPD ~~~ Ind
+    FFPD ~~~ InState2
+
+%% --------------------------- STYLES ---------------------------
+    style FCP stroke:#8b5cf6,stroke-width:2px,fill:transparent
+    style Pos_Block stroke:#8b5cf6,stroke-width:2px,fill:transparent
+    style Compute_Block stroke:#8b5cf6,stroke-width:2px,fill:transparent
+    style Results_Block stroke:#8b5cf6,stroke-width:2px,fill:transparent
+
+    classDef signal stroke:#f59e0b,stroke-width:2px,stroke-dasharray: 5 5,fill:transparent;</code></pre>
+<p><br></p>
+<h2 id="21-trajectory-filtering">2.1. Trajectory Filtering</h2>
+<p>Raw discrete points are insufficient for smooth control derivatives (especially when curvature feedforward is required). To filter the sensor noise without introducing arbitrary phase shifts that would delay the robot's reaction time, a 1st-order Infinite Impulse Response (IIR) low-pass <strong>Butterworth filter</strong> is applied to the spatial coordinates.</p>
+<p><img alt="Butterworth Illustration" src="../../assets/Illustration/Butterworth.svg" /></p>
+<p>The Butterworth filter is chosen for its maximally flat frequency response in the passband, ensuring no artificial ripples are added to the trajectory shape.
+The filter is applied independently to the <span class="arithmatex">\(X\)</span> and <span class="arithmatex">\(Y\)</span> data sequences:</p>
+<div class="arithmatex">\[
+X_{filtered}(k) = \text{Filter}(X_{raw}(k)) \quad \text{and} \quad Y_{filtered}(k) = \text{Filter}(Y_{raw}(k))
+\]</div>
+<p>This results in the <code>Smoothed_Traj</code> variable used throughout the simulator.</p>
+<div class="admonition scilab">
+<p class="admonition-title">Path_Filter.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">function</span><span class="w"> </span>Smoothed_Traj<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">Path_Filter</span><span class="p">(</span>Traj<span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">X0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">Y0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Traj</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">Butterworth_Filter</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">iir</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;lp&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;butt&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0125</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]);</span><span class="w">  </span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">X</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Traj</span><span class="p">(:,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">X0</span><span class="p">;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">Y</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Traj</span><span class="p">(:,</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Y0</span><span class="p">;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">Smoothed_Traj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">zeros</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">Traj</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="nb">size</span><span class="p">(</span><span class="n">Traj</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span><span class="w"> </span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">Smoothed_Traj</span><span class="p">(:,</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Traj</span><span class="p">(:,</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">Smoothed_Traj</span><span class="p">(:,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">flts</span><span class="p">(</span><span class="n">X</span><span class="o">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">Butterworth_Filter</span><span class="p">)</span><span class="o">&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">X0</span><span class="p">;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">Smoothed_Traj</span><span class="p">(:,</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">flts</span><span class="p">(</span><span class="n">Y</span><span class="o">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">Butterworth_Filter</span><span class="p">)</span><span class="o">&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Y0</span><span class="p">;</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<h2 id="22-closest-point-index">2.2. Closest Point Index</h2>
+<p>To evaluate the tracking errors, the simulator must constantly find the closest trajectory point to the robot's current position <span class="arithmatex">\((X_{Robot}, Y_{Robot})\)</span>.
+The standard Euclidean distance between the robot and a trajectory point <span class="arithmatex">\((X_{Traj}, Y_{Traj})\)</span> is:</p>
+<div class="arithmatex">\[
+d = \sqrt{(X_{Traj} - X_{Robot})^2 + (Y_{Traj} - Y_{Robot})^2 }
+\]</div>
+<p>Computing the square root for thousands of trajectory points at every simulation step is computationally expensive. Mathematically, since the square root function <span class="arithmatex">\(f(x) = \sqrt{x}\)</span> is strictly monotonically increasing for all <span class="arithmatex">\(x \ge 0\)</span>, minimizing the distance <span class="arithmatex">\(d\)</span> is strictly equivalent to minimizing the squared distance <span class="arithmatex">\(d^2\)</span>. Thus, the algorithm evaluates:</p>
+<div class="arithmatex">\[
+d^2 = (X_{Traj} - X_{Robot})^2 + (Y_{Traj} - Y_{Robot})^2
+\]</div>
+<p>The index of the minimum value defines the closest discrete point on the path.</p>
+<div class="admonition scilab">
+<p class="admonition-title">Closest_Point.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">function</span><span class="w"> </span>Closest_Point_Index<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">Find_Closest_Point_Index</span><span class="p">(</span>Current_Position<span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">global</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">X_Robot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Position</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">Y_Robot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Position</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">X_Traj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(:,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">Y_Traj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(:,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">Distances_Sq</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">X_Traj</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">X_Robot</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">Y_Traj</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Y_Robot</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">[</span><span class="n">Min_Val</span><span class="p">,</span><span class="w"> </span><span class="n">Closest_Point_Index</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="n">Distances_Sq</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<h2 id="23-anticipation-logic">2.3. Anticipation Logic</h2>
+<p>Due to actuator dynamics (delays in the hydraulic steering) and system inertia, a vehicle reacting only to its immediate lateral error will suffer from severe oscillations and instability. To achieve smooth tracking, the robot must anticipate upcoming curves by aiming for a future reference point on the path.</p>
+<p>In the simulator, this anticipation logic is encapsulated within the <code>Future_Pos_Desired</code> function. The algorithm employs a "Path Walking" strategy to find exactly where the robot should look, based on a predefined <code>Lookahead_Distance</code> (<span class="arithmatex">\(L_d\)</span>).</p>
+<p>Starting from the robot's current closest point on the trajectory (index <span class="arithmatex">\(i\)</span>), a virtual cursor walks forward point-by-point. At each step <span class="arithmatex">\(k\)</span>, the Euclidean distance <span class="arithmatex">\(d_k\)</span> to the next discrete trajectory point is calculated:</p>
+<div class="arithmatex">\[
+d_k = \sqrt{(X_{k+1} - X_{k})^2 + (Y_{k+1} - Y_{k})^2}
+\]</div>
+<p>These small segment lengths are continuously accumulated into a total traveled distance <span class="arithmatex">\(S\)</span>:</p>
+<div class="arithmatex">\[
+S = \sum_{k=i}^{j-1} d_k
+\]</div>
+<p>The <code>while</code> loop in the algorithm increments the index <span class="arithmatex">\(k\)</span> and accumulates <span class="arithmatex">\(S\)</span> until the accumulated distance reaches or exceeds the lookahead parameter:</p>
+<div class="arithmatex">\[
+S \ge L_d
+\]</div>
+<p>Once this condition is met (or if the end of the trajectory array is reached to prevent out-of-bounds errors), the loop terminates. The final index <span class="arithmatex">\(j\)</span> is extracted as <code>Index_Future</code>, and its corresponding coordinates <span class="arithmatex">\((X_{\text{Desired}\_\text{Future}}, Y_{\text{Desired}\_\text{Future}})\)</span> become the <code>Desired_Pos_Future</code>. This future point is critical for the feedforward curvature calculations used in the advanced control laws.</p>
+<div class="admonition scilab">
+<p class="admonition-title">Find_Future_Pos_Desired.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">function</span><span class="err"> [</span><span class="nf">Index_Future</span><span class="p">,</span><span class="n">Desired_Pos_Future</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Future_Pos_Desired</span><span class="p">(</span><span class="k">...</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w"> </span><span class="n">Lookahead_Distance</span><span class="p">,</span><span class="k">...</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w"> </span><span class="n">Closest_Point_Index</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">global</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">NbPoints</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">size</span><span class="p">(</span><span class="n">Smoothed_Traj</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">if</span><span class="w"> </span><span class="n">Closest_Point_Index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">then</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="n">Closest_Point_Index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="k">elseif</span><span class="w"> </span><span class="n">Closest_Point_Index</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">NbPoints</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">then</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="n">Closest_Point_Index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">NbPoints</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="k">end</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="n">Accumulated_Dist</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="n">Current_Idx</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="n">Closest_Point_Index</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">Accumulated_Dist</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Lookahead_Distance</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">Current_Idx</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NbPoints</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="n">P_Current</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Current_Idx</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">     </span><span class="p">;</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Current_Idx</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)]</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="n">P_Next</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Current_Idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Current_Idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)]</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">    </span><span class="n">Step_Dist</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Compute_Distance</span><span class="p">(</span><span class="n">P_Current</span><span class="p">,</span><span class="w"> </span><span class="n">P_Next</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">    </span><span class="n">Accumulated_Dist</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Accumulated_Dist</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Step_Dist</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">    </span><span class="n">Current_Idx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="k">end</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="n">Index_Future</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Idx</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="n">X_Desired_Future</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Index_Future</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="n">Y_Desired_Future</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Index_Future</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="n">Desired_Pos_Future</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">X_Desired_Future</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">Y_Desired_Future</span><span class="p">]</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<div class="admonition scilab">
+<p class="admonition-title">Compute_Distance.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">function</span><span class="w"> </span>d<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">Compute_Distance</span><span class="p">(</span>Point_A, Point_B<span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">X_Diff</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Point_B</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Point_A</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">Y_Diff</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Point_B</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Point_A</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">d</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">sqrt</span><span class="p">(</span><span class="n">X_Diff</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Y_Diff</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<h2 id="24-trajectory-projection-methods">2.4. Trajectory Projection Methods</h2>
+<p>Finding the closest discrete point is not precise enough, as the robot is often located <em>between</em> two defined points. Two projection methods are implemented to find the exact, continuous orthogonal projection point <span class="arithmatex">\((X_{proj}, Y_{proj})\)</span> and its tangent heading <span class="arithmatex">\(\theta_{proj}\)</span>.</p>
+<h3 id="241-polynomial-fitting">2.4.1. Polynomial Fitting</h3>
+<p>This method creates a local, smooth mathematical curve using 3 neighboring points: <span class="arithmatex">\(P_{i-1}\)</span>, <span class="arithmatex">\(P_i\)</span> (closest point based on discrete track points), and <span class="arithmatex">\(P_{i+1}\)</span>. We assign an arbitrary local parametric time <span class="arithmatex">\(t \in [-1, 0, 1]\)</span> to these points.
+We model the local <span class="arithmatex">\(X\)</span> and <span class="arithmatex">\(Y\)</span> coordinates as second-order polynomials:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X(t) = A_x t^2 + B_x t + C_x \\
+Y(t) = A_y t^2 + B_y t + C_y
+\end{aligned}
+\]</div>
+<p>To find the coefficients for <span class="arithmatex">\(X\)</span>, we evaluate the polynomial at the 3 local times, yielding a system of 3 linear equations:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\text{1. At } t = -1: &amp; \quad A_x(-1)^2 + B_x(-1) + C_x &amp;= X_{i-1} \\
+\text{2. At } t = 0:  &amp; \quad A_x(0)^2  + B_x(0)  + C_x &amp;= X_i \\
+\text{3. At } t = 1:  &amp; \quad A_x(1)^2  + B_x(1)  + C_x &amp;= X_{i+1}
+\end{aligned}
+\]</div>
+<p>This is rewritten in matrix form using a Vandermonde matrix:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\underbrace{
+\begin{bmatrix}
+1 &amp; -1 &amp; 1 \\
+0 &amp; 0 &amp; 1 \\
+1 &amp; 1 &amp; 1
+\end{bmatrix}
+}_{\text{Vandermonde Matrix}}
+\begin{bmatrix}
+A_x \\
+B_x \\
+C_x
+\end{bmatrix}
+&amp;=
+\begin{bmatrix}
+X_{i-1} \\
+X_i \\
+X_{i+1}
+\end{bmatrix}
+\end{aligned}
+\]</div>
+<p>The Vandermonde matrix naturally arises from polynomial modeling. Because it is built on distinct parametric time steps, its determinant is guaranteed to be non-zero, ensuring a unique and stable mathematical solution for our local curve.
+<br>
+By inverting the Vandermonde matrix, we obtain the coefficients <span class="arithmatex">\(A_x, B_x,\)</span> and <span class="arithmatex">\(C_x\)</span>. The exact same procedure is applied to find the coefficients <span class="arithmatex">\(A_y, B_y,\)</span> and <span class="arithmatex">\(C_y\)</span> for the <span class="arithmatex">\(Y\)</span> coordinates.</p>
+<hr />
+<p><strong>a) Finding the Exact Orthogonal Projection</strong></p>
+<p>The point <span class="arithmatex">\(P_i\)</span> (<span class="arithmatex">\(t=0\)</span>) is only the <em>discrete</em> closest point. To find the true, continuous projection of the robot onto the trajectory, we must find the parameter <span class="arithmatex">\(t_{best}\)</span> that minimizes the squared Euclidean distance between the robot's current position <span class="arithmatex">\((X_{robot}, Y_{robot})\)</span> and the polynomial curve <span class="arithmatex">\((X(t), Y(t))\)</span>.</p>
+<p>The squared distance function is:</p>
+<div class="arithmatex">\[
+D^2(t) = (X(t) - X_{robot})^2 + (Y(t) - Y_{robot})^2
+\]</div>
+<p>Instead of solving the complex derivative analytically, the algorithm generates a fine virtual curve by discretizing <span class="arithmatex">\(t\)</span> in the interval <span class="arithmatex">\([-1, 1]\)</span> with a high-resolution step (e.g., <span class="arithmatex">\(\Delta t = 0.02\)</span>). It evaluates <span class="arithmatex">\(D^2(t)\)</span> for all these generated points and extracts the <span class="arithmatex">\(t_{best}\)</span> that corresponds to the minimum distance.</p>
+<p>The exact projected coordinates are therefore:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X_{proj} = A_x t_{best}^2 + B_x t_{best} + C_x \\
+Y_{proj} = A_y t_{best}^2 + B_y t_{best} + C_y
+\end{aligned}
+\]</div>
+<hr />
+<p><strong>b) Heading Calculation</strong></p>
+<p>Once <span class="arithmatex">\(t_{best}\)</span> is determined, the local orientation of the trajectory (the projected heading <span class="arithmatex">\(\theta_{proj}\)</span>) is derived from the curve's tangent vector <span class="arithmatex">\(T\)</span> evaluated precisely at <span class="arithmatex">\(t_{best}\)</span>.</p>
+<p>The time-derivative of the position vector is:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+T = 
+\begin{bmatrix}
+\dot{X}(t) \\
+\dot{Y}(t)
+\end{bmatrix}
+&amp;=
+\begin{bmatrix}
+2A_x t + B_x \\
+2A_y t + B_y
+\end{bmatrix}
+\end{aligned}
+\]</div>
+<p>Evaluating this tangent vector at our optimal projection parameter:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\dot{X}(t_{best}) = 2A_x t_{best} + B_x \\
+\dot{Y}(t_{best}) = 2A_y t_{best} + B_y
+\end{aligned}
+\]</div>
+<p>Finally, the projected heading <span class="arithmatex">\(\theta_{proj}\)</span> is calculated using the four-quadrant arctangent. According to our simulator's specific coordinate frame (where <span class="arithmatex">\(\theta = 0\)</span> is aligned with the negative Y-axis, pointing downwards, and increases counter-clockwise), the relationship maps the <span class="arithmatex">\(X\)</span> and <span class="arithmatex">\(Y\)</span> velocity components as follows:</p>
+<div class="arithmatex">\[
+\theta_{proj} = \text{atan2}(\dot{X}(t_{best}), -\dot{Y}(t_{best}))
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">Find_Future_Pos_Desired.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">function</span><span class="w"> </span><span class="nf">Desired_Pos_Now</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Pos_Desired</span><span class="p">(</span><span class="k">...</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">Current_Position</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">Closest_Point_Index</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">Projection_Method</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">global</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">X_Robot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Position</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">Y_Robot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Position</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">NbPoints</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="nb">size</span><span class="p">(</span><span class="n">Smoothed_Traj</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">Cl_Pt_Index</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="n">Closest_Point_Index</span><span class="w">    </span><span class="p">;</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="k">if</span><span class="w"> </span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">then</span><span class="w"> </span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="k">elseif</span><span class="w"> </span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">NbPoints</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">then</span><span class="w"> </span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">NbPoints</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="k">end</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="n">X_Traj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">((</span><span class="n">Cl_Pt_Index</span><span class="o">-</span><span class="mi">1</span><span class="p">):(</span><span class="n">Cl_Pt_Index</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">    </span><span class="n">Y_Traj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">((</span><span class="n">Cl_Pt_Index</span><span class="o">-</span><span class="mi">1</span><span class="p">):(</span><span class="n">Cl_Pt_Index</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">    </span><span class="n">t</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">0</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">    </span><span class="n">Vandermonde</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">t</span><span class="o">.^</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="nb">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)]</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">    </span><span class="n">Coeffs_X</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Vandermonde</span><span class="w"> </span><span class="o">\</span><span class="w"> </span><span class="n">X_Traj</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">Coeffs_X</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">Ax</span><span class="p">,</span><span class="w"> </span><span class="n">Bx</span><span class="p">,</span><span class="w"> </span><span class="n">Cx</span><span class="p">]</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">    </span><span class="n">Coeffs_Y</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Vandermonde</span><span class="w"> </span><span class="o">\</span><span class="w"> </span><span class="n">Y_Traj</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">Coeffs_Y</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">Ay</span><span class="p">,</span><span class="w"> </span><span class="n">By</span><span class="p">,</span><span class="w"> </span><span class="n">Cy</span><span class="p">]</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">    </span><span class="n">t_calc</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">    </span><span class="n">X_calc</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Coeffs_X</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">t_calc</span><span class="o">.^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Coeffs_X</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">t_calc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Coeffs_X</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">    </span><span class="n">Y_calc</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Coeffs_Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">t_calc</span><span class="o">.^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Coeffs_Y</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">t_calc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Coeffs_Y</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">    </span><span class="n">Distances</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">X_calc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">X_Robot</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">Y_calc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Y_Robot</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">    </span><span class="p">[</span><span class="n">Min_Dist</span><span class="p">,</span><span class="w"> </span><span class="n">Best_Idx</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="n">Distances</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="w">    </span><span class="n">t_best</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">t_calc</span><span class="p">(</span><span class="n">Best_Idx</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="w">    </span><span class="n">X_Proj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">X_calc</span><span class="p">(</span><span class="n">Best_Idx</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a><span class="w">    </span><span class="n">Y_Proj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Y_calc</span><span class="p">(</span><span class="n">Best_Idx</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>
+</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="w">    </span><span class="n">dX_dt</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Coeffs_X</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t_best</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Coeffs_X</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-43"><a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a><span class="w">    </span><span class="n">dY_dt</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Coeffs_Y</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t_best</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Coeffs_Y</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="w">    </span><span class="n">Theta_Proj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">dX_dt</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">dY_dt</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a>
+</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a><span class="n">Desired_Pos_Now</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">X_Proj</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">Y_Proj</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">Theta_Proj</span><span class="p">]</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>
+</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<h3 id="242-vector-geometric-projection">2.4.2. Vector Geometric Projection</h3>
+<p>A faster, purely geometric approach. Let <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> be the two trajectory points framing the robot <span class="arithmatex">\(R\)</span>. We define the vectors <span class="arithmatex">\(\vec{AB} = B - A\)</span> and <span class="arithmatex">\(\vec{AR} = R - A\)</span>.</p>
+<p>The exact orthogonal projection relies on the scalar product (dot product). The scalar projection ratio <span class="arithmatex">\(\sigma\)</span> along the segment <span class="arithmatex">\(AB\)</span> is calculated by projecting <span class="arithmatex">\(\vec{AR}\)</span> onto <span class="arithmatex">\(\vec{AB}\)</span>:</p>
+<div class="arithmatex">\[
+\sigma = \frac{\vec{AR} \cdot \vec{AB}}{||\vec{AB}||^2} = \frac{(X_R - X_A)(X_B - X_A) + (Y_R - Y_A)(Y_B - Y_A)}{(X_B - X_A)^2 + (Y_B - Y_A)^2}
+\]</div>
+<p>To prevent the projection from falling outside the segment (e.g., in sharp corners), <span class="arithmatex">\(\sigma\)</span> is saturated:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\text{If } \sigma &lt; 0 \implies \sigma = 0 \\
+\text{If } \sigma &gt; 1 \implies \sigma = 1
+\end{aligned}
+\]</div>
+<p>The exact projected coordinates and heading are:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+P_{proj} = A + \sigma \vec{AB} \\
+\\
+\theta_{proj} = \arctan\left(\frac{X_B - X_A}{-(Y_B - Y_A)}\right)
+\end{aligned}
+\]</div>
+<p><em>(Note: Angle mapping matches the Scilab vertical origin frame).</em></p>
+<div class="admonition scilab">
+<p class="admonition-title">Find_Future_Pos_Desired.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">function</span><span class="w"> </span><span class="nf">Desired_Pos_Now</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Pos_Desired</span><span class="p">(</span><span class="k">...</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">Current_Position</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">Closest_Point_Index</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">Projection_Method</span><span class="p">)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">global</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">X_Robot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Position</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">Y_Robot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Position</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="n">NbPoints</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="nb">size</span><span class="p">(</span><span class="n">Smoothed_Traj</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="n">Cl_Pt_Index</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="n">Closest_Point_Index</span><span class="w">    </span><span class="p">;</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="k">if</span><span class="w"> </span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">then</span><span class="w"> </span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="k">elseif</span><span class="w"> </span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">NbPoints</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">then</span><span class="w"> </span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">NbPoints</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="k">end</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">    </span><span class="n">P_Prev</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">X</span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">Y</span><span class="o">-</span><span class="mi">1</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">    </span><span class="n">P_Curr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Cl_Pt_Index</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">     </span><span class="p">;</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Cl_Pt_Index</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)]</span><span class="w">     </span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">Y</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">    </span><span class="n">P_Next</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">Cl_Pt_Index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">X</span><span class="o">+</span><span class="mi">1</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">Y</span><span class="o">+</span><span class="mi">1</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">    </span><span class="n">P_Rob</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">X_Robot</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">Y_Robot</span><span class="p">]</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">    </span><span class="n">Dist_Prev</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">norm</span><span class="p">(</span><span class="n">P_Rob</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">P_Prev</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">    </span><span class="n">Dist_Next</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">norm</span><span class="p">(</span><span class="n">P_Rob</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">P_Next</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">Dist_Next</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Dist_Prev</span><span class="w"> </span><span class="n">then</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">P_Curr</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="w">        </span><span class="n">B</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">P_Next</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="w">    </span><span class="k">else</span>
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">P_Prev</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="w">        </span><span class="n">B</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">P_Curr</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a><span class="w">    </span><span class="k">end</span>
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="w">    </span><span class="n">AB</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="w">    </span><span class="n">AR</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">P_Rob</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a><span class="w">    </span><span class="n">Scalar_Projection</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">AR</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">AB</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">AR</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">AB</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">AB</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">AB</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">Scalar_Projection</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Theory</span><span class="p">.</span><span class="n">md</span>
+</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>
+</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a><span class="w">    </span><span class="n">Scalar_Projection</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Scalar_Projection</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a><span class="w">    </span><span class="n">Scalar_Projection</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">Scalar_Projection</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>
+</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a><span class="w">    </span><span class="n">Point_Proj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Scalar_Projection</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">AB</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a><span class="w">    </span><span class="n">X_Proj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Point_Proj</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a><span class="w">    </span><span class="n">Y_Proj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Point_Proj</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-48"><a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a>
+</span><span id="__span-5-49"><a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a><span class="w">    </span><span class="n">Theta_Proj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">AB</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="o">-</span><span class="n">AB</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="w">  </span><span class="p">;</span>
+</span><span id="__span-5-50"><a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a>
+</span><span id="__span-5-51"><a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a><span class="n">Desired_Pos_Now</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">X_Proj</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">Y_Proj</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">Theta_Proj</span><span class="p">]</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-5-52"><a id="__codelineno-5-52" name="__codelineno-5-52" href="#__codelineno-5-52"></a>
+</span><span id="__span-5-53"><a id="__codelineno-5-53" name="__codelineno-5-53" href="#__codelineno-5-53"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<h2 id="25-curvature-calculation">2.5. Curvature Calculation</h2>
+<p>To calculate the local curvature of the track, the algorithm approximates the trajectory as a circle passing through three points in the vicinity of the robot.</p>
+<p>Instead of taking three strictly consecutive points (which could be too close to each other and lead to numerical instability or division by zero due to discretization noise), the algorithm introduces a <code>Spacing</code> parameter (e.g., 3 points apart). We define three local points <span class="arithmatex">\(P_1(x_1, y_1)\)</span>, <span class="arithmatex">\(P_2(x_2, y_2)\)</span>, and <span class="arithmatex">\(P_3(x_3, y_3)\)</span>.</p>
+<p>A sliding window logic is implemented to ensure these points are always safely extracted, even at the very beginning or the very end of the trajectory:</p>
+<ul>
+<li><strong>Start of track:</strong> Anchored at indices <span class="arithmatex">\(1\)</span>, <span class="arithmatex">\(1+S\)</span>, <span class="arithmatex">\(1+2S\)</span>.</li>
+<li><strong>End of track:</strong> Anchored at the last possible indices.</li>
+<li><strong>Normal usage:</strong> Centered around the current closest point <span class="arithmatex">\(i\)</span>: <span class="arithmatex">\(P_{i-S}\)</span>, <span class="arithmatex">\(P_i\)</span>, and <span class="arithmatex">\(P_{i+S}\)</span>.</li>
+</ul>
+<hr />
+<p><strong>a) Circumcenter Computation</strong></p>
+<p>Three non-collinear points uniquely define a circle. The center <span class="arithmatex">\((X_c, Y_c)\)</span> of this circumscribed circle is found by determining the intersection of the perpendicular bisectors of the segments <span class="arithmatex">\(P_1P_2\)</span> and <span class="arithmatex">\(P_2P_3\)</span>.</p>
+<p>By solving the geometric system, the coordinates of the circumcenter are given by the following equations:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X_c = \frac{(x_1^2 + y_1^2 - x_2^2 - y_2^2)(y_1 - y_3) - (x_1^2 + y_1^2 - x_3^2 - y_3^2)(y_1 - y_2)}{2 \big( (x_1 - x_2)(y_1 - y_3) - (x_1 - x_3)(y_1 - y_2) \big)} \\
+Y_c = \frac{(x_1^2 + y_1^2 - x_2^2 - y_2^2)(x_1 - x_3) - (x_1^2 + y_1^2 - x_3^2 - y_3^2)(x_1 - x_2)}{2 \big( (y_1 - y_2)(x_1 - x_3) - (y_1 - y_3)(x_1 - x_2) \big)}
+\end{aligned}
+\]</div>
+<p><em>Note: In the code, a tiny constant (<code>1e-9</code>) is added to the denominator to act as a safeguard against pure division by zero when points are perfectly aligned.</em></p>
+<hr />
+<p><strong>b) Signed Radius and Curvature</strong></p>
+<p>If the three extracted points are perfectly aligned, the denominator approaches zero, sending the circumcenter to infinity (<span class="arithmatex">\(X_c = \infty\)</span> or <span class="arithmatex">\(Y_c = \infty\)</span>). In this case, the track is a straight line, and the curvature <span class="arithmatex">\(C\)</span> is strictly <span class="arithmatex">\(0\)</span>.</p>
+<p>Otherwise, we compute the <strong>signed radius</strong> of curvature. The sign is crucial for control purposes (e.g., determining whether the curve turns left or right). This is achieved by projecting the vector from the robot's projected position <span class="arithmatex">\((X_{proj}, Y_{proj})\)</span> to the circumcenter <span class="arithmatex">\((X_c, Y_c)\)</span> onto the directional vector defined by the projected heading <span class="arithmatex">\(\theta_{proj}\)</span>:</p>
+<div class="arithmatex">\[
+R_{signed} = (X_c - X_{proj})\cos(\theta_{proj}) + (Y_c - Y_{proj})\sin(\theta_{proj})
+\]</div>
+<p>Finally, the curvature <span class="arithmatex">\(C\)</span> is simply the inverse of this signed radius:</p>
+<div class="arithmatex">\[
+C = \frac{1}{R_{signed}}
+\]</div>
+<p><br></p>
+<div class="admonition scilab">
+<p class="admonition-title">Curvature.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">function</span><span class="w"> </span><span class="nf">Curvature</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Calculate_Curvature</span><span class="p">(</span><span class="k">...</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">Point_Index</span><span class="p">,</span><span class="w"> </span><span class="k">...</span><span class="c"> </span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">Pos_Desired</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">global</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">NbPoints</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">size</span><span class="p">(</span><span class="n">Smoothed_Traj</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">Spacing</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="w">                      </span><span class="p">;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="o">//</span><span class="w"> </span><span class="n">Begin</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">track</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="k">if</span><span class="w"> </span><span class="n">Point_Index</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Spacing</span><span class="w"> </span><span class="n">then</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="n">p1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w">               </span><span class="p">;</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="n">p2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Spacing</span><span class="w">     </span><span class="p">;</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">    </span><span class="n">p3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Spacing</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="o">//</span><span class="w"> </span><span class="n">End</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">track</span><span class="w">    </span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="k">elseif</span><span class="w"> </span><span class="n">Point_Index</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="p">(</span><span class="n">NbPoints</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Spacing</span><span class="p">)</span><span class="w"> </span><span class="n">then</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">    </span><span class="n">p1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">NbPoints</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Spacing</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">    </span><span class="n">p2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">NbPoints</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Spacing</span><span class="w">     </span><span class="p">;</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">    </span><span class="n">p3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">NbPoints</span><span class="w">               </span><span class="p">;</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="o">//</span><span class="w"> </span><span class="n">Normal</span><span class="w"> </span><span class="n">use</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="k">else</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">    </span><span class="n">p1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Point_Index</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Spacing</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="w">    </span><span class="n">p2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Point_Index</span><span class="w">           </span><span class="p">;</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="w">    </span><span class="n">p3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Point_Index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Spacing</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="k">end</span>
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>
+</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="n">x1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">y1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="n">x2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">y2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="n">x3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">p3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">y3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Smoothed_Traj</span><span class="p">(</span><span class="n">p3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>
+</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="n">Num_X</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">((</span><span class="n">x1</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y1</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x2</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y2</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">y1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y3</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">x1</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y1</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x3</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y3</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">y1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y2</span><span class="p">))</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a><span class="n">Den_X</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">((</span><span class="n">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">y1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y3</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">y1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y2</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1e-9</span><span class="p">;</span>
+</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a><span class="n">X_Center</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Num_X</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Den_X</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a>
+</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a><span class="n">Num_Y</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">((</span><span class="n">x1</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y1</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x2</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y2</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x3</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">x1</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y1</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x3</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y3</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x2</span><span class="p">))</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a><span class="n">Den_Y</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">((</span><span class="n">y1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x3</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">y1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x2</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1e-9</span><span class="p">;</span>
+</span><span id="__span-6-39"><a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a><span class="n">Y_Center</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Num_Y</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Den_Y</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-40"><a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a>
+</span><span id="__span-6-41"><a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a><span class="k">if</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">X_Center</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="c">%inf | abs(Y_Center) == %inf | isnan(X_Center) then</span>
+</span><span id="__span-6-42"><a id="__codelineno-6-42" name="__codelineno-6-42" href="#__codelineno-6-42"></a><span class="w">    </span><span class="n">Curvature</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-43"><a id="__codelineno-6-43" name="__codelineno-6-43" href="#__codelineno-6-43"></a><span class="k">else</span>
+</span><span id="__span-6-44"><a id="__codelineno-6-44" name="__codelineno-6-44" href="#__codelineno-6-44"></a><span class="w">    </span><span class="n">X_Proj</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="n">Pos_Desired</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-45"><a id="__codelineno-6-45" name="__codelineno-6-45" href="#__codelineno-6-45"></a><span class="w">    </span><span class="n">Y_Proj</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="n">Pos_Desired</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-46"><a id="__codelineno-6-46" name="__codelineno-6-46" href="#__codelineno-6-46"></a><span class="w">    </span><span class="n">Theta_Proj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Pos_Desired</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-47"><a id="__codelineno-6-47" name="__codelineno-6-47" href="#__codelineno-6-47"></a>
+</span><span id="__span-6-48"><a id="__codelineno-6-48" name="__codelineno-6-48" href="#__codelineno-6-48"></a><span class="w">    </span><span class="n">Radius_Curvature</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">X_Center</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">X_Proj</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">Theta_Proj</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">Y_Center</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Y_Proj</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">Theta_Proj</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-49"><a id="__codelineno-6-49" name="__codelineno-6-49" href="#__codelineno-6-49"></a>
+</span><span id="__span-6-50"><a id="__codelineno-6-50" name="__codelineno-6-50" href="#__codelineno-6-50"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">Radius_Curvature</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">then</span>
+</span><span id="__span-6-51"><a id="__codelineno-6-51" name="__codelineno-6-51" href="#__codelineno-6-51"></a><span class="w">        </span><span class="n">Curvature</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-52"><a id="__codelineno-6-52" name="__codelineno-6-52" href="#__codelineno-6-52"></a><span class="w">    </span><span class="k">else</span>
+</span><span id="__span-6-53"><a id="__codelineno-6-53" name="__codelineno-6-53" href="#__codelineno-6-53"></a><span class="w">        </span><span class="n">Curvature</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Radius_Curvature</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-6-54"><a id="__codelineno-6-54" name="__codelineno-6-54" href="#__codelineno-6-54"></a><span class="w">    </span><span class="k">end</span>
+</span><span id="__span-6-55"><a id="__codelineno-6-55" name="__codelineno-6-55" href="#__codelineno-6-55"></a><span class="k">end</span>
+</span><span id="__span-6-56"><a id="__codelineno-6-56" name="__codelineno-6-56" href="#__codelineno-6-56"></a>
+</span><span id="__span-6-57"><a id="__codelineno-6-57" name="__codelineno-6-57" href="#__codelineno-6-57"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<h2 id="26-computation-of-tracking-errors">2.6. Computation of Tracking Errors</h2>
+<p>Once the continuous projection point <span class="arithmatex">\((X_{proj}, Y_{proj})\)</span> and the reference heading <span class="arithmatex">\(\theta_{proj}\)</span> are determined (see Section 2.4), the simulator must compute the relative tracking errors. This process, implemented in the <code>Computation_Tracking_Errors</code> function, represents a coordinate transformation from the <strong>Global Cartesian Frame</strong> to the <strong>Local Frenet Frame</strong>.</p>
+<h3 id="261-the-distance-vector">2.6.1. The Distance Vector</h3>
+<p>We define the distance vector <span class="arithmatex">\(\vec{D}\)</span> as the translation required to move from the projected point on the path to the robot's current position:</p>
+<div class="arithmatex">\[
+\vec{D} = \begin{bmatrix} X_{robot} - X_{proj} \\ Y_{robot} - Y_{proj} \end{bmatrix}
+\]</div>
+<p>This vector contains the raw spatial gap, but it is not yet actionable for control because it is still expressed in global <span class="arithmatex">\(X\)</span> and <span class="arithmatex">\(Y\)</span> coordinates.</p>
+<h3 id="262-derivation-of-the-lateral-error-y">2.6.2. Derivation of the Lateral Error (<span class="arithmatex">\(y\)</span>)</h3>
+<p>The lateral error <span class="arithmatex">\(y\)</span> is defined as the <strong>orthogonal distance</strong> from the robot to the path. Mathematically, this is the scalar projection of the distance vector <span class="arithmatex">\(\vec{D}\)</span> onto the path's unit normal vector <span class="arithmatex">\(\vec{n}_{proj}\)</span>.</p>
+<hr />
+<p><strong>a) Defining the Reference Vectors</strong></p>
+<p>Based on the simulator's specific orientation convention (where <span class="arithmatex">\(\theta=0\)</span> is aligned with the negative Y-axis and increases counter-clockwise), the unit tangent vector <span class="arithmatex">\(\vec{t}_{proj}\)</span> at the path is:</p>
+<div class="arithmatex">\[
+\vec{t}_{proj} = \begin{bmatrix} \sin(\theta_{proj}) \\ -\cos(\theta_{proj}) \end{bmatrix}
+\]</div>
+<p>The unit normal vector <span class="arithmatex">\(\vec{n}_{proj}\)</span> must be perpendicular to the tangent (<span class="arithmatex">\(\vec{t}_{proj} \cdot \vec{n}_{proj} = 0\)</span>). In this frame, the normal vector is:</p>
+<div class="arithmatex">\[
+\vec{n}_{proj} = \begin{bmatrix} \cos(\theta_{proj}) \\ \sin(\theta_{proj}) \end{bmatrix}
+\]</div>
+<hr />
+<p><strong>b) The Projection Operation</strong></p>
+<p>The lateral error <span class="arithmatex">\(y\)</span> is the dot product of the distance vector and the normal vector:</p>
+<div class="arithmatex">\[
+y = \vec{D} \cdot \vec{n}_{proj}
+\]</div>
+<div class="arithmatex">\[
+y = \begin{bmatrix} X_{robot} - X_{proj} \\ Y_{robot} - Y_{proj} \end{bmatrix} \cdot \begin{bmatrix} \cos(\theta_{proj}) \\ \sin(\theta_{proj}) \end{bmatrix}
+\]</div>
+<p>Expanding the dot product yields the fundamental equation used in the Scilab code:</p>
+<div class="arithmatex">\[
+y = (X_{robot} - X_{proj})\cos(\theta_{proj}) + (Y_{robot} - Y_{proj})\sin(\theta_{proj})
+\]</div>
+<h3 id="263-derivation-of-the-heading-error-tildetheta">2.6.3. Derivation of the Heading Error (<span class="arithmatex">\(\tilde{\theta}\)</span>)</h3>
+<p>The heading error represents the angular misalignment between the vehicle's chassis and the trajectory's local direction. It is defined simply as the difference between the two absolute angles:</p>
+<div class="arithmatex">\[
+\tilde{\theta} = \theta_{robot} - \theta_{proj}
+\]</div>
+<h3 id="264-angular-fitting-and-normalization">2.6.4. Angular Fitting and Normalization</h3>
+<p>Because angles are periodic, a simple subtraction can lead to values outside the practical range <span class="arithmatex">\([-\pi, \pi]\)</span>. For example, if <span class="arithmatex">\(\theta_{robot} = 170^\circ\)</span> and <span class="arithmatex">\(\theta_{proj} = -170^\circ\)</span>, the raw subtraction yields <span class="arithmatex">\(340^\circ\)</span>, whereas the physical geometric error is only <span class="arithmatex">\(-20^\circ\)</span>.</p>
+<p>To ensure the controller always reacts to the "shortest" angular path, a wrapping logic is applied:</p>
+<ol>
+<li><strong>If <span class="arithmatex">\(\tilde{\theta} &gt; \pi\)</span>:</strong> <span class="arithmatex">\(\tilde{\theta}_{new} = \tilde{\theta} - 2\pi\)</span></li>
+<li><strong>If <span class="arithmatex">\(\tilde{\theta} &lt; -\pi\)</span>:</strong> <span class="arithmatex">\(\tilde{\theta}_{new} = \tilde{\theta} + 2\pi\)</span></li>
+</ol>
+<h3 id="265-summary-of-the-error-vector">2.6.5. Summary of the Error Vector</h3>
+<p>The final output is the tracking error vector, which serves as the entry point for all high-level control laws:</p>
+<div class="arithmatex">\[
+\text{TrackingErrors} = \begin{bmatrix} y \\ \tilde{\theta} \end{bmatrix}^T
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">Tracking_Errors.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">function</span><span class="w"> </span><span class="nf">Tracking_Errors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Calculate_Tracking_Errors</span><span class="p">(</span><span class="k">...</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">Current_Position</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">Current_Pos_Desired</span><span class="p">)</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">X_Robot</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Position</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">Y_Robot</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Position</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">Theta_Robot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Position</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="n">X_Proj</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Pos_Desired</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="n">Y_Proj</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Pos_Desired</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="n">Theta_Proj</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Current_Pos_Desired</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="n">Lat_Err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">X_Robot</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">X_Proj</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">Theta_Proj</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">Y_Robot</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Y_Proj</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">Theta_Proj</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="n">H_Err</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="n">Theta_Robot</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Theta_Proj</span><span class="w">                                                    </span><span class="p">;</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="k">if</span><span class="w"> </span><span class="n">H_Err</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="c">%pi then</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">    </span><span class="n">H_Err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">H_Err</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="c">%pi ;</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="k">elseif</span><span class="w"> </span><span class="n">H_Err</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">-</span><span class="c">%pi then</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">    </span><span class="n">H_Err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">H_Err</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="c">%pi ;</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="k">end</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="n">Tracking_Errors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">Lat_Err</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="n">H_Err</span><span class="p">]</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+<h2 id="27-tracking-point-offset">2.7. Tracking Point Offset</h2>
+<p>In standard mobile robotics, the control point is usually the center of the rear axle. However, in agriculture, the priority is the precision of the <strong>implement</strong> (e.g., a seeder, a plow, or a sprayer). Depending on whether the tool is mounted on the 3-point hitch or towed, the point that must strictly follow the trajectory is often located several meters behind or in front of the vehicle's reference center.</p>
+<p>The simulator handles this via a coordinate transformation defined by two offsets:</p>
+<ul>
+<li><span class="arithmatex">\(T_x\)</span>: Longitudinal offset (distance along the vehicle's main axis).</li>
+<li><span class="arithmatex">\(T_y\)</span>: Lateral offset (side distance from the center-line).</li>
+</ul>
+<h3 id="271-mathematical-transformation">2.7.1. Mathematical Transformation</h3>
+<p>Let <span class="arithmatex">\(R(X, Y)\)</span> be the coordinates of the rear axle center and <span class="arithmatex">\(\theta\)</span> be the vehicle's heading. We seek the coordinates of the Tracked Point <span class="arithmatex">\(P_t (X_t, Y_t)\)</span>.</p>
+<p>Based on the vehicle's local frame, the transformation uses the following trigonometric rotation (matching the simulator's vertical origin convention):</p>
+<div class="arithmatex">\[
+\begin{aligned}
+X_t = X + T_x \sin(\theta) + T_y \cos(\theta) \\
+Y_t = Y - T_x \cos(\theta) + T_y \sin(\theta)
+\end{aligned}
+\]</div>
+<h3 id="272-physical-impact-on-control">2.7.2. Physical Impact on Control</h3>
+<p>When an offset is applied, the "Tracking Errors" (<span class="arithmatex">\(y\)</span> and <span class="arithmatex">\(\tilde{\theta}\)</span>) calculated in Section 2.6 are no longer computed for the robot's center, but for the position of the tool.</p>
+<ul>
+<li><strong>Positive <span class="arithmatex">\(T_x\)</span> (Front sensor/tool):</strong> Increases the system's anticipation. The robot reacts to the path "ahead" of its physical center, which generally stabilizes the tracking but can lead to "cutting corners".</li>
+<li><strong>Negative <span class="arithmatex">\(T_x\)</span> (Towed implement):</strong> Adds a significant phase lag and a "trailer effect". Controlling a point behind the axle is inherently more difficult and often requires the use of the dynamic rear-steering laws detailed in Chapter 7 to maintain the tool on the line during curves.</li>
+</ul>
+<p>By adjusting <span class="arithmatex">\(T_x\)</span> and <span class="arithmatex">\(T_y\)</span>, the simulator can represent any configuration, from a simple autonomous tractor to a complex machine with an asymmetric side-mounted tool.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy", "navigation.prune", "toc.integrate"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../Theme/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../Theme/3_Dropdown/nav_dropdown.js"></script>
+      
+    
+  </body>
+</html>

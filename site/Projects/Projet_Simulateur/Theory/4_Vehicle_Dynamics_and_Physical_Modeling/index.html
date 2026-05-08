@@ -1,0 +1,1162 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/Projects/Projet_Simulateur/Theory/4_Vehicle_Dynamics_and_Physical_Modeling/">
+      
+      
+        <link rel="prev" href="../3_Mathematical_Foundations_%26_Modeling/">
+      
+      
+        <link rel="next" href="../5_State_Observers/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/logo_SB.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Vehicle Dynamics - Sam Bouchaud</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+  <link rel="stylesheet" href="../../../../Theme/2_Documentation_Project/Extra_Documentation.css">
+
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&display=swap">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&family=Pacifico&display=swap">
+    
+      <link rel="stylesheet" href="../../../../Theme/3_Dropdown/nav_dropdown.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#4-vehicle-dynamics-and-physical-modeling" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Sam Bouchaud" class="md-header__button md-logo" aria-label="Sam Bouchaud" data-md-component="logo">
+      
+  <img src="../../../../assets/logo_SB.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sam Bouchaud
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Vehicle Dynamics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Homepage
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index_4WS_Simu/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Simulator Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Sam Bouchaud" class="md-nav__button md-logo" aria-label="Sam Bouchaud" data-md-component="logo">
+      
+  <img src="../../../../assets/logo_SB.svg" alt="logo">
+
+    </a>
+    Sam Bouchaud
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homepage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulator Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Simulator Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index_4WS_Simu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_Simulator_Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2_Path_Tracking_and_Error_Computation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3_Mathematical_Foundations_%26_Modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicle Dynamics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicle Dynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-the-fundamental-principle-of-dynamics-in-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. The Fundamental Principle of Dynamics in Rotation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-global-slip-angle-dynamics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Global Slip Angle Dynamics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-axle-slip-angles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Axle Slip Angles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-tireground-contact-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. Tire/Ground Contact Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4. Tire/Ground Contact Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-linear-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.1. Linear Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-pacejkas-magic-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.2. Pacejka's Magic Formula
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5_State_Observers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Observers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6_Front_Axle_Control_Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Front Axle Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7_Rear_Axle_Control_Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rear Axle Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Implementation/1_Parameters_Launch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index_Results_4WS_Simu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="4-vehicle-dynamics-and-physical-modeling">4. Vehicle Dynamics and Physical Modeling</h1>
+<p>While geometric kinematics are sufficient for flat, low-speed navigation, agricultural environments introduce significant physical constraints. Terrain slopes, high inertia, and low-adhesion surfaces generate substantial lateral forces. To accurately simulate the robot's behavior—especially its tendency to slip and drift—we must compute its motion using the fundamental principles of rigid body dynamics.</p>
+<p>This section details the Newton-Euler derivations that govern the vehicle's rotational acceleration and slip angles, directly reflecting the computational core of the simulator.</p>
+<h2 id="41-the-fundamental-principle-of-dynamics-in-rotation">4.1. The Fundamental Principle of Dynamics in Rotation</h2>
+<p>When the vehicle steers, the tires generate lateral forces that create a rotational moment around the Center of Gravity (CoG). According to Euler's equation for rigid body rotation, the sum of these moments dictates the yaw acceleration <span class="arithmatex">\(\ddot{\theta}\)</span>.</p>
+<p>Let <span class="arithmatex">\(I_z\)</span> be the yaw moment of inertia, <span class="arithmatex">\(L_F\)</span> and <span class="arithmatex">\(L_R\)</span> be the distances from the CoG to the front and rear axles respectively, and <span class="arithmatex">\(F_{yF}\)</span> and <span class="arithmatex">\(F_{yR}\)</span> be the lateral forces generated by the tires.</p>
+<p>The mechanical steering angles <span class="arithmatex">\(\delta_F\)</span> and <span class="arithmatex">\(\delta_R\)</span> rotate the wheels relative to the chassis. Therefore, only the component of the tire force that is perpendicular to the vehicle's longitudinal axis contributes to the yaw moment.</p>
+<p>Applying the rotational dynamic equilibrium:</p>
+<div class="arithmatex">\[
+I_z \cdot \ddot{\theta} = L_R \cdot F_{yR} \cos(\delta_R) - L_F \cdot F_{yF} \cos(\delta_F)
+\]</div>
+<p>Isolating the yaw acceleration <span class="arithmatex">\(\ddot{\theta}\)</span> yields the exact equation computed in the simulation:</p>
+<div class="arithmatex">\[
+\ddot{\theta} = \frac{1}{I_z} \Big( L_R \cdot F_{yR} \cos(\delta_R) - L_F \cdot F_{yF} \cos(\delta_F) \Big)
+\]</div>
+<p>To obtain the vehicle's yaw rate <span class="arithmatex">\(\dot{\theta}\)</span> and absolute heading <span class="arithmatex">\(\theta\)</span> for the current discrete time step <span class="arithmatex">\(dt\)</span>, we perform a first-order numerical Euler integration:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\dot{\theta}_{k+1} &amp;= \dot{\theta}_k + \ddot{\theta}_k \cdot dt \\
+\theta_{k+1} &amp;= \theta_k + \dot{\theta}_{k+1} \cdot dt
+\end{aligned}
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">Dynamic_Mouvement.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Theta_Double_Dot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">Iz</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">LF</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">F_Lat_Force</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">F_Steer_A</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">LR</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">R_Lat_Force</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">R_Steer_A</span><span class="p">))</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">Theta_Dot</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Theta_Dot</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Theta_Double_Dot</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">Theta</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Theta</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Theta_Dot</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="p">;</span>
+</span></code></pre></div>
+</div>
+<h2 id="42-global-slip-angle-dynamics">4.2. Global Slip Angle Dynamics</h2>
+<p>In extreme off-road conditions, the vehicle does not move perfectly in the direction it is pointing. The entire chassis drifts. This drift is quantified by the global vehicle slip angle <span class="arithmatex">\(\beta\)</span>, which is the angle between the chassis' longitudinal axis and the actual CoG velocity vector (<span class="arithmatex">\(V_{CoG}\)</span>).</p>
+<p>To find how this drift evolves (<span class="arithmatex">\(\dot{\beta}\)</span>), we apply Newton's Second Law of Motion (<span class="arithmatex">\(F = m \cdot a\)</span>) projected onto the axis strictly <strong>perpendicular to the velocity vector</strong>.</p>
+<p>The absolute lateral acceleration <span class="arithmatex">\(a_{\perp}\)</span> perpendicular to the path of the CoG is composed of the change in the slip angle itself plus the yaw rate of the vehicle:</p>
+<div class="arithmatex">\[
+a_{\perp} = V_{CoG} (\dot{\beta} + \dot{\theta})
+\]</div>
+<p>Multiplying this acceleration by the vehicle mass <span class="arithmatex">\(M\)</span> gives the sum of external forces perpendicular to the velocity:</p>
+<div class="arithmatex">\[
+M \cdot V_{CoG} (\dot{\beta} + \dot{\theta}) = \sum F_{\perp}
+\]</div>
+<p>Three external forces act perpendicularly to the movement:</p>
+<ol>
+<li><strong>Gravity on a slope:</strong> If the terrain has a lateral slope angle (<span class="arithmatex">\(\alpha_{slope}\)</span>), gravity pulls the vehicle sideways: <span class="arithmatex">\(M \cdot g \sin(\alpha_{slope})\)</span>.</li>
+<li><strong>Front tire force:</strong> Projected relative to the velocity vector: <span class="arithmatex">\(-F_{yF} \cos(\beta - \delta_F)\)</span>.</li>
+<li><strong>Rear tire force:</strong> Projected relative to the velocity vector: <span class="arithmatex">\(-F_{yR} \cos(\beta - \delta_R)\)</span>.</li>
+</ol>
+<p><em>(Note: The tire forces are negative because they act as restoring forces opposing the outward drift).</em></p>
+<p>Assembling the complete dynamic equation:</p>
+<div class="arithmatex">\[
+M \cdot V_{CoG} (\dot{\beta} + \dot{\theta}) = M \cdot g \sin(\alpha_{slope}) - F_{yF} \cos(\beta - \delta_F) - F_{yR} \cos(\beta - \delta_R)
+\]</div>
+<p>To isolate the slip angle derivative <span class="arithmatex">\(\dot{\beta}\)</span>, we divide the entire equation by <span class="arithmatex">\(M \cdot V_{CoG}\)</span> and subtract <span class="arithmatex">\(\dot{\theta}\)</span>:</p>
+<div class="arithmatex">\[
+\dot{\beta} = \frac{1}{M \cdot V_{CoG}} \Big( M \cdot g \sin(\alpha_{slope}) - F_{yF} \cos(\beta - \delta_F) - F_{yR} \cos(\beta - \delta_R) \Big) - \dot{\theta}
+\]</div>
+<p>Distributing the fraction yields the exact differential equation evaluated in the simulator to compute <code>Vehicle_Beta_Dot</code>:</p>
+<div class="arithmatex">\[
+\dot{\beta} = \frac{g \sin(\alpha_{slope})}{V_{CoG}} - \frac{1}{M \cdot V_{CoG}} \Big( F_{yF} \cos(\beta - \delta_F) + F_{yR} \cos(\beta - \delta_R) \Big) - \dot{\theta}
+\]</div>
+<p>Just like the yaw rate, the global slip angle <span class="arithmatex">\(\beta\)</span> is then updated via Euler integration:</p>
+<div class="arithmatex">\[
+\beta_{k+1} = \beta_k + \dot{\beta}_k \cdot dt
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">Dynamic_Mouvement.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="o">//</span><span class="w"> </span><span class="n">Safty</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">avoid</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">divise</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">robot</span><span class="w"> </span><span class="nb">close</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="nb">stop</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">if</span><span class="w"> </span><span class="n">Speed</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.25</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">CoG_Speed</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="n">Speed</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">Vehicle_Beta</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">Vehicle_Beta_Dot</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">M</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CoG_Speed</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">((</span><span class="n">F_Lat_Force</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">Vehicle_Beta</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">F_Steer_A</span><span class="p">)</span><span class="k">...</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">                         </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">R_Lat_Force</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">Vehicle_Beta</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">R_Steer_A</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">g</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">Slope_Rad</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">CoG_Speed</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Theta_Dot</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">Vehicle_Beta</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="n">Vehicle_Beta</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Vehicle_Beta_Dot</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="p">;</span>
+</span></code></pre></div>
+</div>
+<h2 id="43-axle-slip-angles">4.3. Axle Slip Angles</h2>
+<p>The lateral forces <span class="arithmatex">\(F_{yF}\)</span> and <span class="arithmatex">\(F_{yR}\)</span> used above do not depend on the global slip angle <span class="arithmatex">\(\beta\)</span>, but on the <em>local</em> slip angles at each specific axle (<span class="arithmatex">\(\beta_F\)</span> and <span class="arithmatex">\(\beta_R\)</span>). Because the vehicle is rotating while translating, the front axle "swipes" laterally faster than the CoG, while the rear axle moves slower.</p>
+<p>We must derive the true local velocity vector angles (<span class="arithmatex">\(\alpha_F\)</span> and <span class="arithmatex">\(\alpha_R\)</span>) relative to the chassis.
+First, we decompose the CoG velocity into longitudinal (<span class="arithmatex">\(V_x\)</span>) and lateral (<span class="arithmatex">\(V_y\)</span>) components relative to the chassis:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+V_x &amp;= V_{CoG} \cos(\beta) \\
+V_y &amp;= V_{CoG} \sin(\beta)
+\end{aligned}
+\]</div>
+<p>Using solid kinematics, the lateral velocity at the front axle includes the yaw rotation contribution (<span class="arithmatex">\(+L_F \dot{\theta}\)</span>), while the rear axle subtracts it (<span class="arithmatex">\(-L_R \dot{\theta}\)</span>). Assuming the longitudinal velocity is identical across the chassis (<span class="arithmatex">\(V_{xF} = V_{xR} = V_x\)</span>):</p>
+<div class="arithmatex">\[
+\begin{aligned}
+V_{yF} &amp;= V_{CoG} \sin(\beta) + L_F \dot{\theta} \\
+V_{yR} &amp;= V_{CoG} \sin(\beta) - L_R \dot{\theta}
+\end{aligned}
+\]</div>
+<p>The absolute velocity angle at the front axle <span class="arithmatex">\(\alpha_F\)</span> is the arctangent of its lateral over longitudinal velocities:</p>
+<div class="arithmatex">\[
+\alpha_F = \arctan \left( \frac{V_{yF}}{V_x} \right) = \arctan \left( \frac{V_{CoG} \sin(\beta) + L_F \dot{\theta}}{V_{CoG} \cos(\beta)} \right)
+\]</div>
+<p>By dividing the numerator terms by the denominator, we simplify this into the exact formula utilized in the code:</p>
+<div class="arithmatex">\[
+\alpha_F = \arctan \left( \frac{V_{CoG} \sin(\beta)}{V_{CoG} \cos(\beta)} + \frac{L_F \dot{\theta}}{V_{CoG} \cos(\beta)} \right) = \arctan \left( \tan(\beta) + \frac{L_F \dot{\theta}}{V_{CoG} \cos(\beta)} \right)
+\]</div>
+<p>Finally, a local tire slip angle is defined as the difference between this true velocity angle and the mechanical steering angle (<span class="arithmatex">\(\beta_{slip} = \alpha - \delta\)</span>). Applying this to both axles provides the final required states:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\beta_F &amp;= \arctan \left( \tan(\beta) + \frac{L_F \dot{\theta}}{V_{CoG} \cos(\beta)} \right) - \delta_F \\
+\beta_R &amp;= \arctan \left( \tan(\beta) - \frac{L_R \dot{\theta}}{V_{CoG} \cos(\beta)} \right) - \delta_R
+\end{aligned}
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">Dynamic_Mouvement.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="o">//</span><span class="w"> </span><span class="n">Safty</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">avoid</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">divise</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">robot</span><span class="w"> </span><span class="nb">close</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="nb">stop</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">if</span><span class="w"> </span><span class="n">Speed</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.25</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">Front_Beta</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="w"> </span><span class="p">(</span><span class="nb">tan</span><span class="p">(</span><span class="n">Vehicle_Beta</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">LF</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Theta_Dot</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">CoG_Speed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">Vehicle_Beta</span><span class="p">)))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">F_Steer_A</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">Rear_Beta</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="w"> </span><span class="p">(</span><span class="nb">tan</span><span class="p">(</span><span class="n">Vehicle_Beta</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">LR</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Theta_Dot</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">CoG_Speed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">cos</span><span class="p">(</span><span class="n">Vehicle_Beta</span><span class="p">)))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">R_Steer_A</span><span class="w"> </span><span class="p">;</span>
+</span></code></pre></div>
+</div>
+<h2 id="44-tireground-contact-models">4.4. Tire/Ground Contact Models</h2>
+<p>With the local slip angles determined, the simulator evaluates the actual lateral forces generated by the tires. The engine supports two distinct contact models depending on the required fidelity.</p>
+<h3 id="441-linear-model">4.4.1. Linear Model</h3>
+<p>For basic debugging and near-zero slip conditions, a linear approximation is used. The tire acts as a simple torsional spring where the lateral force is strictly proportional to the local slip angle multiplied by a Cornering Stiffness constant <span class="arithmatex">\(C\)</span>:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+F_{yF} &amp;= C \cdot \beta_F \\
+F_{yR} &amp;= C \cdot \beta_R
+\end{aligned}
+\]</div>
+<div class="admonition scilab">
+<p class="admonition-title">Dynamic_Mouvement.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">F_Lat_Force</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Front_Beta</span><span class="p">;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">R_Lat_Force</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Rear_Beta</span><span class="p">;</span>
+</span></code></pre></div>
+</div>
+<h3 id="442-pacejkas-magic-formula">4.4.2. Pacejka's Magic Formula</h3>
+<p>For true agricultural fidelity, the linear model is inadequate because it fails to cap the friction limit, allowing infinite grip. To simulate realistic loss of traction and non-linear tire saturation, the simulator implements Pacejka's Magic Formula. The specific parameters and empirical coefficients used in this model are adapted from agricultural robotics research, specifically detailed in the study: <a href="https://hal.inrae.fr/hal-02597620v1"><em>Etude, modélisation et validation du contact roue/sol pour la simulation de véhicules et robots mobiles sous le logiciel Adams</em></a>.</p>
+<p>The fundamental Magic Formula evaluates the lateral force <span class="arithmatex">\(F_y\)</span> as a function of the slip angle <span class="arithmatex">\(\beta\)</span> (converted to degrees):</p>
+<div class="arithmatex">\[
+F_y = D \cdot \sin \Big( C \cdot \arctan \big( B \cdot \beta_{deg} - E \cdot (B \cdot \beta_{deg} - \arctan(B \cdot \beta_{deg})) \big) \Big)
+\]</div>
+<p>The shape of this curve is governed by dynamic variables that depend strictly on the <strong>Normal Force</strong> (<span class="arithmatex">\(F_z\)</span>) pushing the tire into the ground. In this framework, the vertical load distribution is modeled statically based on the geometric CoG location:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+F_{zF} &amp;= M \cdot g \cdot \left(\frac{L_R}{L}\right) \\
+F_{zR} &amp;= M \cdot g \cdot \left(\frac{L_F}{L}\right)
+\end{aligned}
+\]</div>
+<p>Using nine empirical coefficients (<span class="arithmatex">\(a_0\)</span> through <span class="arithmatex">\(a_8\)</span>), the core Pacejka parameters (<span class="arithmatex">\(B, C, D, E\)</span>) are continuously evaluated for each axle:</p>
+<p><strong>a) Peak Factor (<span class="arithmatex">\(D\)</span>):</strong> Determines the absolute maximum grip available.</p>
+<div class="arithmatex">\[
+D = a_1 F_z^2 + a_2 F_z
+\]</div>
+<p><strong>b) Shape Factor (<span class="arithmatex">\(C\)</span>):</strong> Controls the overall bounds of the sine transition.</p>
+<div class="arithmatex">\[
+C = a_0
+\]</div>
+<p><strong>c) Stiffness Factor (<span class="arithmatex">\(B\)</span>):</strong> Governs the initial slope of the curve (similar to the linear model's stiffness). To prevent numerical instability at zero loads, a microscopic safeguard constant (<code>1e-6</code>) is added to the denominator.</p>
+<div class="arithmatex">\[
+B = \frac{a_3 \sin(a_4 \arctan(a_5 F_z))}{a_0 \cdot D + 10^{-6}}
+\]</div>
+<p><strong>d) Curvature Factor (<span class="arithmatex">\(E\)</span>):</strong> Dictates the drop-off rate of grip once the peak limit is exceeded.</p>
+<div class="arithmatex">\[
+E = a_6 F_z^2 + a_7 F_z + a_8
+\]</div>
+<p>By resolving this equation at every simulation step, the system perfectly captures the transition from high-grip turning to uncontrolled skidding.</p>
+<div class="admonition scilab">
+<p class="admonition-title">Dynamic_Mouvement.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">a0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">1.3</span><span class="w">   </span><span class="p">;</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Shape</span><span class="w"> </span><span class="n">Factor</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">a1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">-</span><span class="mi">8</span><span class="w">    </span><span class="p">;</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Second</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="n">coefficient</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">peak</span><span class="w"> </span><span class="n">adhesion</span><span class="w"> </span><span class="n">curve</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">a2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">100</span><span class="w">   </span><span class="p">;</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">First</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="n">coefficient</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">peak</span><span class="w"> </span><span class="n">adhesion</span><span class="w"> </span><span class="n">curve</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">a3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">200</span><span class="w">   </span><span class="p">;</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Stiffness</span><span class="w"> </span><span class="n">coefficient</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">dictates</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">slope</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">force</span><span class="w"> </span><span class="n">curve</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">origin</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">a4</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">1.82</span><span class="w">  </span><span class="p">;</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Adjusts</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">stiffness</span><span class="w"> </span><span class="n">evolution</span><span class="w"> </span><span class="n">according</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">vertical</span><span class="w"> </span><span class="nb">load</span><span class="w"> </span><span class="n">Fz</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">a5</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.208</span><span class="w"> </span><span class="p">;</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Fine</span><span class="o">-</span><span class="n">tunes</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">stiffness</span><span class="w"> </span><span class="n">based</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">applied</span><span class="w"> </span><span class="n">vertical</span><span class="w"> </span><span class="nb">load</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">wheel</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">a6</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w">     </span><span class="p">;</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Shape</span><span class="w"> </span><span class="nb">factor</span><span class="w"> </span><span class="n">E</span><span class="p">,</span><span class="w"> </span><span class="n">controls</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">curvature</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">peak</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">curve</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">a7</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.354</span><span class="w"> </span><span class="p">;</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Manages</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">transition</span><span class="w"> </span><span class="nb">between</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">elastic</span><span class="w"> </span><span class="n">zone</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">pure</span><span class="w"> </span><span class="n">slip</span><span class="w"> </span><span class="n">zone</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">a8</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="w">     </span><span class="p">;</span><span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Adapts</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">transition</span><span class="w"> </span><span class="n">based</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">applied</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">wheel</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="o">//</span><span class="w"> </span><span class="o">---------</span><span class="w"> </span><span class="n">Normal</span><span class="w"> </span><span class="n">Forces</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">F_Fz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">LR</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">L</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="p">;</span><span class="w">   </span><span class="o">//</span><span class="w"> </span><span class="n">Front</span><span class="w"> </span><span class="n">normal</span><span class="w"> </span><span class="n">force</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">R_Fz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">LF</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">L</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="p">;</span><span class="w">   </span><span class="o">//</span><span class="w"> </span><span class="n">Rear</span><span class="w"> </span><span class="n">normal</span><span class="w"> </span><span class="n">force</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="o">//</span><span class="w"> </span><span class="n">Equation</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Lateral_Force</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">B</span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">E</span><span class="o">*</span><span class="p">(</span><span class="n">B</span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">B</span><span class="o">*</span><span class="n">x</span><span class="p">)))),</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">C</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="o">//</span><span class="w">  </span><span class="o">---------</span><span class="w"> </span><span class="n">Front</span><span class="w"> </span><span class="n">Wheel</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="n">D_Front</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">a1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">F_Fz</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">a2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">F_Fz</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="n">B_Front</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">a3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">a4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">a5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">F_Fz</span><span class="p">)</span><span class="w"> </span><span class="p">))</span><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">a0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">D_Front</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="n">E_Front</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">a6</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">F_Fz</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="p">(</span><span class="n">a7</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">F_Fz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a8</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="o">//</span><span class="w">  </span><span class="o">---------</span><span class="w"> </span><span class="n">Rear</span><span class="w"> </span><span class="n">Wheel</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="n">D_Rear</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">a1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">R_Fz</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">a2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">R_Fz</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="n">B_Rear</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">a3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">a4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">a5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">R_Fz</span><span class="p">)</span><span class="w"> </span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">a0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">D_Rear</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="n">E_Rear</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">a6</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">R_Fz</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="p">(</span><span class="n">a7</span><span class="o">*</span><span class="n">R_Fz</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a8</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="o">//</span><span class="w"> </span><span class="n">Radian</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="nb">degree</span><span class="w"> </span><span class="n">conversion</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="n">Front_Beta_Deg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Front_Beta</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">180</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="c">%pi ; </span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="n">Rear_Beta_Deg</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="n">Rear_Beta</span><span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="mi">180</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="c">%pi ;</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="o">//</span><span class="w"> </span><span class="n">Lateral</span><span class="w"> </span><span class="n">Forces</span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="n">F_Lat_Force</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">D_Front</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">a0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">B_Front</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">E_Front</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Front_Beta_Deg</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">E_Front</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">B_Front</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">B_Front</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Front_Beta_Deg</span><span class="p">))))</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="n">R_Lat_Force</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">D_Rear</span><span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="nb">sin</span><span class="p">(</span><span class="n">a0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">B_Rear</span><span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">E_Rear</span><span class="p">)</span><span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="n">Rear_Beta_Deg</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">E_Rear</span><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="n">B_Rear</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">B_Rear</span><span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="n">Rear_Beta_Deg</span><span class="p">))))</span><span class="w">  </span><span class="p">;</span>
+</span></code></pre></div>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy", "navigation.prune", "toc.integrate"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../Theme/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../Theme/3_Dropdown/nav_dropdown.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,169 @@
+/* ============================================================
+   nav_pills.css
+   Composant : Navigation flottante en pills (gauche)
+   avec dots expand pour les sous-tests
+   ============================================================
+   Dépendances attendues dans la page hôte :
+     --r-mono   : police monospace (ex: 'JetBrains Mono')
+     --r-purple : #aa00ff
+     --r-cyan   : #00e5cc
+     --r-yellow : #ffe566
+     --r-bg     : #0a0714
+
+   Si ces variables ne sont pas définies, les fallbacks
+   intégrés ci-dessous prennent le relais.
+   ============================================================ */
+
+
+/* ── Conteneur fixe ── */
+.nav-pills {
+  position: fixed;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+
+/* ── Wrapper par niveau (pill + dots) ── */
+.nav-pill-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+}
+
+
+/* ── Pill individuelle ── */
+.nav-pill {
+  font-family: var(--r-mono, 'JetBrains Mono', monospace);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 13px;
+  border-radius: 20px;
+  border: 0.5px solid rgba(170, 0, 255, 0.28);
+  background: rgba(10, 7, 20, 0.82);
+  color: rgba(200, 170, 255, 0.38);
+  white-space: nowrap;
+  cursor: pointer !important;
+  pointer-events: all;
+  user-select: none;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition:
+    color        0.22s ease,
+    border-color 0.22s ease,
+    background   0.22s ease,
+    box-shadow   0.22s ease,
+    transform    0.18s ease;
+}
+
+.nav-pill:hover {
+  color: rgba(200, 170, 255, 0.75);
+  border-color: rgba(170, 0, 255, 0.55);
+  background: rgba(20, 10, 40, 0.92);
+  transform: translateX(3px);
+}
+
+.nav-pill.is-active {
+  color: var(--r-cyan, #00e5cc);
+  border-color: rgba(0, 229, 204, 0.5);
+  background: rgba(0, 229, 204, 0.07);
+  box-shadow:
+    0 0 10px rgba(0, 229, 204, 0.12),
+    inset 0 0 6px rgba(0, 229, 204, 0.05);
+  transform: translateX(4px);
+}
+
+
+/* ── Rangée de dots (sous-tests) ── */
+.nav-pill-dots {
+  display: flex;
+  gap: 5px;
+  padding: 0 13px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    max-height 0.3s ease,
+    opacity    0.25s ease;
+}
+
+.nav-pill-group.is-open .nav-pill-dots {
+  max-height: 16px;
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+/* ── Dot individuel ── */
+.nav-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(170, 0, 255, 0.32);
+  background: transparent;
+  flex-shrink: 0;
+  cursor: pointer !important;
+  transition:
+    background    0.2s ease,
+    border-color  0.2s ease,
+    box-shadow    0.2s ease,
+    transform     0.18s ease;
+}
+
+.nav-dot:hover {
+  border-color: rgba(255, 229, 102, 0.55);
+  transform: scale(1.25);
+}
+
+.nav-dot.is-active {
+  background: var(--r-yellow, #ffe566);
+  border-color: rgba(255, 229, 102, 0.7);
+  box-shadow: 0 0 6px rgba(255, 229, 102, 0.4);
+}
+
+
+/* ── Tooltip au hover sur les dots ── */
+.nav-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(10, 7, 20, 0.95);
+  border: 0.5px solid rgba(170, 0, 255, 0.3);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-family: var(--r-mono, 'JetBrains Mono', monospace);
+  font-size: 0.55rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(200, 170, 255, 0.7);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.nav-dot:hover::after {
+  opacity: 1;
+}
+
+.nav-dot.is-active::after {
+  color: rgba(255, 229, 102, 0.85);
+  border-color: rgba(255, 229, 102, 0.25);
+}
+
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .nav-pills { display: none; }
+}

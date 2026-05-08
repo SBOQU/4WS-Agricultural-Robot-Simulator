@@ -1,0 +1,1051 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/Projects/Projet_Simulateur/Theory/7_Rear_Axle_Control_Strategies/">
+      
+      
+        <link rel="prev" href="../6_Front_Axle_Control_Strategies/">
+      
+      
+        <link rel="next" href="../../Implementation/1_Parameters_Launch/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/logo_SB.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Rear Axle Control - Sam Bouchaud</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+  <link rel="stylesheet" href="../../../../Theme/2_Documentation_Project/Extra_Documentation.css">
+
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&display=swap">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Manrope:wght@300&family=Pacifico&display=swap">
+    
+      <link rel="stylesheet" href="../../../../Theme/3_Dropdown/nav_dropdown.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#7-rear-axle-control-strategies" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Sam Bouchaud" class="md-header__button md-logo" aria-label="Sam Bouchaud" data-md-component="logo">
+      
+  <img src="../../../../assets/logo_SB.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sam Bouchaud
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rear Axle Control
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Homepage
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../index_4WS_Simu/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Simulator Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Sam Bouchaud" class="md-nav__button md-logo" aria-label="Sam Bouchaud" data-md-component="logo">
+      
+  <img src="../../../../assets/logo_SB.svg" alt="logo">
+
+    </a>
+    Sam Bouchaud
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homepage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulator Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Simulator Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index_4WS_Simu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_Simulator_Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2_Path_Tracking_and_Error_Computation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path Tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3_Mathematical_Foundations_%26_Modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4_Vehicle_Dynamics_and_Physical_Modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicle Dynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5_State_Observers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Observers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6_Front_Axle_Control_Strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Front Axle Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rear Axle Control
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rear Axle Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#71-curvature-based-control-law" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Curvature-Based Control Law
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1. Curvature-Based Control Law">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711-quadratic-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1.1. Quadratic Resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#712-singularity-management-straight-line-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1.2. Singularity Management (Straight-Line Navigation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#713-dynamic-compensation-and-saturation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1.3. Dynamic Compensation and Saturation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Implementation/1_Parameters_Launch/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index_Results_4WS_Simu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="7-rear-axle-control-strategies">7. Rear Axle Control Strategies</h1>
+<p>In a 4-Wheel Steering (4WS) agricultural robot, the rear axle is not merely a follower; it is an active participant in path tracking. Its primary roles are:
+* <strong>Turning Radius Reduction:</strong> By steering in the opposite direction to the front wheels (counter-phase), the robot can negotiate tight headland turns.
+* <strong>Crab Steering:</strong> By steering in the same direction as the front wheels (in-phase), the robot can compensate for lateral sliding on slopes, maintaining the chassis parallel to the path.
+* <strong>Heading Stabilization:</strong> The rear axle provides an additional degree of freedom to decouple the regulation of the lateral error (<span class="arithmatex">\(y\)</span>) from the heading error (<span class="arithmatex">\(\tilde{\theta}\)</span>), leading to much smoother trajectories.</p>
+<h2 id="71-curvature-based-control-law">7.1. Curvature-Based Control Law</h2>
+<p>The control strategy for the rear axle implemented in this simulator is based on an analytical approach that relates the steering effort to the path's geometry.</p>
+<h3 id="711-quadratic-resolution">7.1.1. Quadratic Resolution</h3>
+<p>The core logic aims to satisfy a specific heading error convergence. Unlike traditional controllers, we solve for the steering angle that satisfies a second-order geometric relationship. </p>
+<p>Let us define the desired variation of the heading error as a proportional correction:</p>
+<div class="arithmatex">\[
+\Delta\tilde{\theta} = K_{d2} \cdot (\tilde{\theta} - \tilde{\theta}_{desired})
+\]</div>
+<p>Where <span class="arithmatex">\(K_{d2}\)</span> is a tuning gain and <span class="arithmatex">\(\tilde{\theta}_{desired}\)</span> is the target heading (usually zero). </p>
+<p>The simulator seeks to solve the following quadratic equation for a virtual term <span class="arithmatex">\(X\)</span>:</p>
+<div class="arithmatex">\[
+X^2 - K_d \cdot X + c(s) \cdot \Delta\tilde{\theta} = 0
+\]</div>
+<p>Where <span class="arithmatex">\(K_d\)</span> is a damping-like gain and <span class="arithmatex">\(c(s)\)</span> is the local curvature. To find the solution, we calculate the <strong>discriminant</strong> (<span class="arithmatex">\(\Delta\)</span>):</p>
+<div class="arithmatex">\[
+\Delta = K_d^2 - 4 \cdot c(s) \cdot \Delta\tilde{\theta}
+\]</div>
+<p>This discriminant is a critical stability indicator:
+1. <strong>If <span class="arithmatex">\(\Delta \ge 0\)</span>:</strong> Real solutions exist. We select the root that minimizes the steering effort:</p>
+<div class="arithmatex">\[
+RootTerm = \frac{K_d - \sqrt{\Delta}}{2}
+\]</div>
+<ol>
+<li><strong>If <span class="arithmatex">\(\Delta &lt; 0\)</span>:</strong> The required correction is mathematically impossible for the current curvature/error state (complex solutions). The simulator triggers a safety warning and clips <span class="arithmatex">\(\Delta\)</span> to <span class="arithmatex">\(0\)</span> to maintain numerical continuity.</li>
+</ol>
+<p>The target effective orientation for the rear axle is then derived from the ratio of this root to the curvature:</p>
+<div class="arithmatex">\[
+\tan(\tilde{\theta} + \beta_R + \delta_R) = \frac{Root\_Term}{c(s)}
+\]</div>
+<h3 id="712-singularity-management-straight-line-navigation">7.1.2. Singularity Management (Straight-Line Navigation)</h3>
+<p>A major mathematical challenge arises when the robot moves in a straight line. As the curvature <span class="arithmatex">\(c(s)\)</span> approaches zero, the term <span class="arithmatex">\(\frac{RootTerm}{c(s)}\)</span> tends toward an undefined form (<span class="arithmatex">\(\frac{0}{0}\)</span>). </p>
+<p>To ensure a seamless transition, the simulator detects when <span class="arithmatex">\(|c(s)| &lt; 0.01\)</span>. In this case, it abandons the quadratic resolution and switches to a <strong>Linear Term</strong> derived from a first-order Taylor expansion. This term reintroduces the lateral error (<span class="arithmatex">\(y\)</span>) to ensure the rear axle helps the robot "stick" to the line:</p>
+<div class="arithmatex">\[
+LinearTerm = \frac{\Delta\tilde{\theta}}{K_d} - \frac{K_d \cdot y}{4}
+\]</div>
+<p>By using this logic, the robot maintains high-precision tracking on straight segments where the quadratic equation would otherwise become singular.</p>
+<h3 id="713-dynamic-compensation-and-saturation">7.1.3. Dynamic Compensation and Saturation</h3>
+<p>Once the target tangent (either from the quadratic root or the linear term) is determined, we must solve for the actual mechanical steering angle <span class="arithmatex">\(\delta_R\)</span>.</p>
+<ol>
+<li><strong>Heading and Slip Inversion:</strong>
+The angle we calculated is the absolute orientation of the velocity vector. To find the mechanical angle <span class="arithmatex">\(\delta_R\)</span> relative to the chassis, we must subtract the current heading error and the estimated dynamic slip angle:</li>
+</ol>
+<div class="arithmatex">\[
+\delta_{R, raw} = \arctan(TargetTangent) - \tilde{\theta} - \beta_R
+\]</div>
+<ol>
+<li><strong>Safety Bounding:</strong>
+To protect the physical integrity of the actuators and prevent tangent singularities (as discussed in section 3.3), a strict saturation is applied:</li>
+</ol>
+<div class="arithmatex">\[
+\delta_R = \max(\delta_{min}, \min(\delta_{max}, \delta_{R, raw}))
+\]</div>
+<p>where <span class="arithmatex">\(\delta_{min} = -30^\circ\)</span> and <span class="arithmatex">\(\delta_{max} = 30^\circ\)</span>.</p>
+<p>This final command ensures that the rear axle actively corrects the robot's posture while accounting for the non-linear physics of tire slip and path curvature.</p>
+<div class="admonition scilab">
+<p class="admonition-title">Front_Axle.sce</p>
+<div class="language-matlab highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">function</span><span class="w"> </span><span class="nf">Rear_Axle_Output</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Model_Rear_Axle_Output</span><span class="p">(</span><span class="k">...</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">Lateral_Error</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">Heading_Error</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">Curvature</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">Front_Beta</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">Rear_Beta</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Parameters</span><span class="w"> </span><span class="o">----------</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">Kd</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mf">0.4</span><span class="w">        </span><span class="p">;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">Kp</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">Kd</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">Kd2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w">        </span><span class="p">;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">global</span><span class="w"> </span><span class="n">Heading_Error_Desired</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">Min_Angle</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">-</span><span class="mi">30</span><span class="w">  </span><span class="p">;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">Max_Angle</span><span class="w"> </span><span class="p">=</span><span class="w">  </span><span class="mi">30</span><span class="w">  </span><span class="p">;</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Computation</span><span class="w"> </span><span class="o">----------</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">Heading_Error_Diff</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Kd2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Heading_Error</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Heading_Error_Desired</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">Discriminant</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">Kd</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Curvature</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Heading_Error_Diff</span><span class="w">         </span><span class="p">;</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="o">//</span><span class="w"> </span><span class="n">If</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">solution</span><span class="w"> </span><span class="n">become</span><span class="w"> </span><span class="n">complexe</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="k">if</span><span class="w"> </span><span class="n">Discriminant</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">then</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="nb">disp</span><span class="p">(</span><span class="s">&quot;Warning : Compelexe solution !&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="n">Discriminant</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w">                       </span><span class="p">;</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="k">end</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="n">Root_Term</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">Kd</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">sqrt</span><span class="p">(</span><span class="n">Discriminant</span><span class="p">))</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Singularity</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">straight</span><span class="w"> </span><span class="nb">line</span><span class="w"> </span><span class="o">----------</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="k">if</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">Curvature</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.01</span><span class="w"> </span><span class="n">then</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="n">Linear_Term</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">Heading_Error_Diff</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Kd</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">Kd</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Lateral_Error</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w">       </span><span class="p">;</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">    </span><span class="n">Rear_Steer_A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">Linear_Term</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Heading_Error</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Rear_Beta</span><span class="w">             </span><span class="p">;</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="k">else</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="n">Rear_Steer_A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">atan</span><span class="p">(</span><span class="n">Root_Term</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Curvature</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Heading_Error</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Rear_Beta</span><span class="w">   </span><span class="p">;</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="k">end</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Saturation</span><span class="w"> </span><span class="o">----------</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="k">if</span><span class="w"> </span><span class="n">Rear_Steer_A</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">Max_Angle</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="c">%pi / 180) then</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">    </span><span class="n">Rear_Steer_A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Max_Angle</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="c">%pi / 180 ;</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="k">elseif</span><span class="w"> </span><span class="n">Rear_Steer_A</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">Min_Angle</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="c">%pi / 180) then</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">    </span><span class="n">Rear_Steer_A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Min_Angle</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="c">%pi / 180 ;</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="k">end</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="o">//</span><span class="w"> </span><span class="o">----------</span><span class="w"> </span><span class="n">Output</span><span class="w"> </span><span class="o">----------</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="n">Rear_Axle_Output</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Rear_Steer_A</span><span class="w"> </span><span class="p">;</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="n">endfunction</span>
+</span></code></pre></div>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy", "navigation.prune", "toc.integrate"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../Theme/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../../../Theme/3_Dropdown/nav_dropdown.js"></script>
+      
+    
+  </body>
+</html>
